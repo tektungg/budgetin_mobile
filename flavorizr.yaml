@@ -1,0 +1,77 @@
+ide: "vscode"
+flavors:
+  dev:
+    app:
+      name: "Budgetin Dev"
+      # icon: "assets/app_icons/app_icon_dev.png"
+    android:
+      applicationId: "com.budgetin.id.dev"
+    ios:
+      bundleId: "com.budgetin.id.dev"
+    # firebase:
+    #   config: "ios/config/dev/GoogleService-Info.plist"
+  staging:
+    app:
+      name: "Budgetin Staging"
+      # icon: "assets/app_icons/app_icon_staging.png"
+    android:
+      applicationId: "com.budgetin.id.staging"
+    ios:
+      bundleId: "com.budgetin.id.staging"
+    # firebase:
+    #   config: "ios/config/staging/GoogleService-Info.plist"
+  production:
+    app:
+      name: "Budgetin"
+      # icon: "assets/app_icons/app_icon.png"
+    android:
+      applicationId: "com.budgetin.id"
+    ios:
+      bundleId: "com.budgetin.id"
+    # firebase:
+    #   config: "ios/config/production/GoogleService-Info.plist"
+
+instructions:
+  #  Prepare
+  - assets:download
+  - assets:extract
+
+  #  Android
+  - android:androidManifest
+  - android:buildGradle
+  - android:dummyAssets
+  - android:icons
+
+  #  Flutter
+  - flutter:flavors
+  # - flutter:app
+  # - flutter:pages
+  - flutter:main
+  - flutter:targets
+
+  #  iOS
+  - ios:xcconfig
+  - ios:buildTargets
+  - ios:schema
+  - ios:dummyAssets
+  - ios:icons
+  - ios:plist
+  - ios:launchScreen
+
+  #  macOS
+  # - macos:xcconfig
+  # - macos:configs
+  # - macos:buildTargets
+  # - macos:schema
+  # - macos:dummyAssets
+  # - macos:icons
+  # - macos:plist
+
+  #  Google
+  # - google:firebase
+
+  #  Cleanup
+  - assets:clean
+
+  #  IDE
+  - ide:config
