@@ -24,6 +24,10 @@ dependencies:
   get: ^4.6.6
   envied: ^1.1.1
 
+  # Supabase
+  supabase_flutter: ^2.8.0
+  google_sign_in: ^6.2.1
+
   # Flavor
   flutter_flavorizr: ^2.2.3
 
@@ -50,6 +54,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.6
+  envied_generator: ^1.1.1
 
   flutter_lints: ^6.0.0
   flutter_test:
