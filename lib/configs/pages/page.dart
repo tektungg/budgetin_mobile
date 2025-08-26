@@ -1,8 +1,16 @@
+import 'package:budgetin/features/home/bindings/home_binding.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/configs/routes/route.dart';
 import 'package:budgetin/features/no_connection/view/ui/no_connection_screen.dart';
 import 'package:budgetin/features/splash/bindings/splash_binding.dart';
 import 'package:budgetin/features/splash/view/ui/splash_screen.dart';
+import 'package:budgetin/features/auth/bindings/auth_binding.dart';
+import 'package:budgetin/features/auth/screen/ui/auth_screen.dart';
+import 'package:budgetin/features/auth/sub_features/sign_in/bindings/sign_in_binding.dart';
+import 'package:budgetin/features/auth/sub_features/sign_in/view/ui/sign_in_screen.dart';
+import 'package:budgetin/features/auth/sub_features/sign_up/bindings/sign_up_binding.dart';
+import 'package:budgetin/features/auth/sub_features/sign_up/view/ui/sign_up_screen.dart';
+import 'package:budgetin/features/home/screen/ui/home_screen.dart';
 
 abstract class Pages {
   static final pages = [
@@ -14,6 +22,26 @@ abstract class Pages {
     GetPage(
       name: Routes.noConnection,
       page: () => const NoConnectionScreen(),
+    ),
+    GetPage(
+      name: Routes.authRoute,
+      page: () => const AuthScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.signInRoute,
+      page: () => const SignInScreen(),
+      binding: SignInBinding(),
+    ),
+    GetPage(
+      name: Routes.signUpRoute,
+      page: () => const SignUpScreen(),
+      binding: SignUpBinding(),
+    ),
+    GetPage(
+      name: Routes.homeRoute,
+      page: () => const HomeScreen(),
+      binding: HomeBinding(),
     ),
   ];
 }

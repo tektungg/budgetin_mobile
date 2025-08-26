@@ -10,6 +10,7 @@ import 'package:budgetin/utils/services/api_service.dart';
 import 'package:budgetin/utils/services/applink_service.dart';
 import 'package:budgetin/utils/services/hive_service.dart';
 import 'package:budgetin/utils/services/supabase_service.dart';
+import 'package:budgetin/utils/services/auth_state_service.dart';
 import 'package:vpack/vpack.dart';
 import 'utils/services/sentry_services.dart';
 
@@ -30,6 +31,9 @@ Future<void> _initServices() async {
 
   // Initialize Supabase first
   await Get.putAsync(() => SupabaseService().init());
+
+  // Initialize Auth State Service
+  await Get.putAsync(() => AuthStateService().init());
 
   await Get.putAsync(() => HiveService().initHive());
   /* Uncomment jika sudah membuat Firebase Options 

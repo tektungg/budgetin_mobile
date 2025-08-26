@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           child: GetMaterialApp(
             title: 'Budgetin',
             debugShowCheckedModeBanner: false,
-            initialRoute: Routes.splashRoute,
+            initialRoute: Routes.signInRoute,
             theme: themeLight,
             defaultTransition: Transition.native,
             getPages: Pages.pages,

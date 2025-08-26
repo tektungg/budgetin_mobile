@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:budgetin/env/env.dart';
 
 class SupabaseService extends GetxService {
@@ -8,6 +11,9 @@ class SupabaseService extends GetxService {
   late SupabaseClient _client;
   SupabaseClient get client => _client;
 
+  // Google Sign In instance
+  late GoogleSignIn _googleSignIn;
+
   Future<SupabaseService> init() async {
     await Supabase.initialize(
       url: Env.supabaseUrl,
@@ -15,6 +21,12 @@ class SupabaseService extends GetxService {
     );
 
     _client = Supabase.instance.client;
+
+    // Initialize Google Sign In
+    _googleSignIn = GoogleSignIn(
+        // Tambahkan server client ID jika diperlukan
+        // serverClientId: 'your-server-client-id',
+        );
 
     return this;
   }
@@ -49,13 +61,58 @@ class SupabaseService extends GetxService {
 
   Future<bool> signInWithGoogle() async {
     try {
-      await _client.auth.signInWithOAuth(
+      log('Starting Google Sign In...', name: 'SupabaseService');
+
+      // Method 1: Coba OAuth flow dulu (lebih reliable untuk mobile)
+      final response = await _client.auth.signInWithOAuth(
         OAuthProvider.google,
-        redirectTo: Env.supabaseGoogleCallbackUrl,
+        redirectTo: null, // Biarkan Supabase handle redirect
       );
-      return true;
+
+      log('OAuth response: $response', name: 'SupabaseService');
+      return response;
     } catch (e) {
-      return false;
+      log('OAuth Sign In Error: $e', name: 'SupabaseService');
+
+      // Method 2: Fallback ke native Google Sign In
+      try {
+        log('Trying native Google Sign In fallback...',
+            name: 'SupabaseService');
+
+        final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+        if (googleUser == null) {
+          log('User cancelled Google Sign In', name: 'SupabaseService');
+          return false;
+        }
+
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final accessToken = googleAuth.accessToken;
+        final idToken = googleAuth.idToken;
+
+        if (accessToken == null) {
+          throw 'No Access Token found.';
+        }
+        if (idToken == null) {
+          throw 'No ID Token found.';
+        }
+
+        // Sign in to Supabase with Google credentials
+        final response = await _client.auth.signInWithIdToken(
+          provider: OAuthProvider.google,
+          idToken: idToken,
+          accessToken: accessToken,
+        );
+
+        log('Native Google Sign In success: ${response.user?.email}',
+            name: 'SupabaseService');
+        return response.user != null;
+      } catch (e2) {
+        log('Native Google Sign In fallback error: $e2',
+            name: 'SupabaseService');
+        return false;
+      }
     }
   }
 
