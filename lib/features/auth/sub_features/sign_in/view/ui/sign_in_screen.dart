@@ -27,7 +27,7 @@ class SignInScreen extends GetView<SignInController> {
                 SizedBox(height: 40.h),
 
                 // Error Message Display
-                Obx(() => SignInErrorMessage(
+                Obx(() => AuthErrorMessage(
                       errorMessage: controller.errorMessage,
                     )),
 
