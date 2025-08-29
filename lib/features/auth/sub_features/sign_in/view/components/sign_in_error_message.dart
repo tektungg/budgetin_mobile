@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 
 class SignInErrorMessage extends StatelessWidget {
   final String errorMessage;
@@ -20,15 +21,15 @@ class SignInErrorMessage extends StatelessWidget {
       padding: EdgeInsets.all(12.w),
       margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
-        color: Colors.red.shade50,
-        border: Border.all(color: Colors.red.shade200),
+        color: AppColors.error.withValues(alpha: 0.1),
+        border: Border.all(color: AppColors.error.withValues(alpha: 0.3)),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Row(
         children: [
           Icon(
             Icons.error_outline,
-            color: Colors.red.shade600,
+            color: AppColors.error,
             size: 20.w,
           ),
           SizedBox(width: 8.w),
@@ -36,7 +37,7 @@ class SignInErrorMessage extends StatelessWidget {
             child: Text(
               errorMessage,
               style: TextStyle(
-                color: Colors.red.shade700,
+                color: AppColors.error,
                 fontSize: 14.sp,
               ),
             ),

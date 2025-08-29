@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -33,8 +34,8 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? Colors.blue,
-          foregroundColor: textColor ?? Colors.white,
+          backgroundColor: backgroundColor ?? AppColors.primary,
+          foregroundColor: textColor ?? AppColors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 12.r),
           ),
@@ -45,7 +46,7 @@ class CustomButton extends StatelessWidget {
                 width: 20.w,
                 height: 20.h,
                 child: const CircularProgressIndicator(
-                  color: Colors.white,
+                  color: AppColors.white,
                   strokeWidth: 2,
                 ),
               )

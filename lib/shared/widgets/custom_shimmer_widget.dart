@@ -3,6 +3,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:shimmer/shimmer.dart";
+import 'package:budgetin/shared/styles/styles.dart';
 
 class CustomShimmerWidget extends StatelessWidget {
   final double width;
@@ -19,12 +20,12 @@ class CustomShimmerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.withAlpha(100),
-      highlightColor: Colors.white,
+      baseColor: AppColors.text1_200.withOpacity(0.3),
+      highlightColor: AppColors.white,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius ?? 8.r),
-          color: Colors.grey,
+          color: AppColors.text1_200,
         ),
         width: width,
         height: height,

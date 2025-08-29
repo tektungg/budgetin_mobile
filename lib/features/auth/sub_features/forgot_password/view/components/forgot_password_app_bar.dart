@@ -1,5 +1,5 @@
-import 'package:budgetin/shared/styles/google_text_style.dart';
 import 'package:budgetin/shared/components/components.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/auth/sub_features/forgot_password/controllers/forgot_password_controller.dart';
@@ -12,10 +12,12 @@ class ForgotPasswordAppBar extends GetView<ForgotPasswordController>
   Widget build(BuildContext context) {
     return CustomAppBar(
       title: 'Reset Password',
-      titleTextStyle: GoogleTextStyle.fw600.copyWith(color: Colors.white),
+      titleTextStyle: AppFonts.primaryBold20.copyWith(
+        color: AppColors.white,
+      ),
       centerTitle: true,
-      backgroundColor: Colors.blue,
-      foregroundColor: Colors.white,
+      backgroundColor: AppColors.primary,
+      foregroundColor: AppColors.white,
       leadingIcon: Icons.arrow_back_ios_new,
       onLeadingPressed: controller.goBack,
     );

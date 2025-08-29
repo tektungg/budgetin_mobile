@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:get/get.dart";
+import 'package:budgetin/shared/styles/styles.dart';
 
 class CustomTextEditingWidget extends StatelessWidget {
   final String? label;
@@ -101,37 +102,37 @@ class CustomTextEditingWidget extends StatelessWidget {
             hintStyle: Get.textTheme.bodyMedium?.copyWith(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: Colors.grey,
+              color: AppColors.text1_500,
             ),
             enabledBorder: customBorder ??
                 OutlineInputBorder(
                   borderRadius: BorderRadius.circular(6),
                   borderSide: const BorderSide(
-                    color: Colors.grey,
+                    color: AppColors.border,
                   ),
                 ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(6),
               borderSide: const BorderSide(
-                color: Colors.grey,
+                color: AppColors.border,
               ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(6),
               borderSide: const BorderSide(
-                color: Colors.red,
+                color: AppColors.error,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(6),
               borderSide: const BorderSide(
-                color: Colors.red,
+                color: AppColors.error,
               ),
             ),
             errorStyle: Get.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w600,
               fontSize: 10,
-              color: Colors.red,
+              color: AppColors.error,
             ),
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:budgetin/features/auth/sub_features/forgot_password/controllers/forgot_password_controller.dart';
 import 'package:budgetin/features/auth/sub_features/forgot_password/view/components/components.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       appBar: const ForgotPasswordAppBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24.w),

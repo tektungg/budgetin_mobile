@@ -10,8 +10,8 @@ class ForgotPasswordInstructions extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: AppColors.info.withOpacity(0.1),
-        border: Border.all(color: AppColors.info.withOpacity(0.3)),
+        color: AppColors.info.withValues(alpha: 0.1),
+        border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Column(

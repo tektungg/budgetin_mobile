@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
-import "package:budgetin/shared/styles/google_text_style.dart";
+import 'package:budgetin/shared/styles/styles.dart';
 
 class CustomEmptyWidget extends StatelessWidget {
   final String message;
@@ -31,7 +31,7 @@ class CustomEmptyWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               message,
               style: GoogleTextStyle.fw600.copyWith(
-                color: Colors.black,
+                color: AppColors.text1_1000,
                 fontSize: 16.sp,
               ),
             ),
@@ -40,7 +40,7 @@ class CustomEmptyWidget extends StatelessWidget {
               secondMesssage ?? "",
               textAlign: TextAlign.center,
               style: GoogleTextStyle.fw400.copyWith(
-                color: Colors.black,
+                color: AppColors.text1_600,
                 fontSize: 12.sp,
               ),
             ),

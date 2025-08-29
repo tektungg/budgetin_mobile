@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/utils/services/supabase_service.dart';
 import 'package:budgetin/utils/functions/error_parser.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthController extends GetxController {
@@ -58,8 +58,8 @@ class AuthController extends GetxController {
           'Berhasil',
           'Akun berhasil dibuat! Silakan cek email Anda untuk verifikasi.',
           snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
+          backgroundColor: AppColors.success,
+          colorText: AppColors.white,
         );
         return true;
       }

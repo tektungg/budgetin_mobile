@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/auth/sub_features/sign_in/controllers/sign_in_controller.dart';
 import 'package:budgetin/features/auth/sub_features/sign_in/view/components/components.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 
 class SignInScreen extends GetView<SignInController> {
   const SignInScreen({super.key});
@@ -10,7 +11,7 @@ class SignInScreen extends GetView<SignInController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w),

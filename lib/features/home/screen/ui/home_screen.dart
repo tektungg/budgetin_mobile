@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/home/controllers/home_controller.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({super.key});
@@ -11,8 +12,8 @@ class HomeScreen extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Budgetin Home'),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.white,
         actions: [
           IconButton(
             onPressed: controller.logout,
@@ -43,7 +44,7 @@ class HomeScreen extends GetView<HomeController> {
                       'Email: ${user.email}',
                       style: TextStyle(
                         fontSize: 16.sp,
-                        color: Colors.grey[600],
+                        color: AppColors.text1_600,
                       ),
                     ),
                     if (user.userMetadata?['full_name'] != null) ...[
@@ -52,7 +53,7 @@ class HomeScreen extends GetView<HomeController> {
                         'Name: ${user.userMetadata!['full_name']}',
                         style: TextStyle(
                           fontSize: 16.sp,
-                          color: Colors.grey[600],
+                          color: AppColors.text1_600,
                         ),
                       ),
                     ],
@@ -84,25 +85,25 @@ class HomeScreen extends GetView<HomeController> {
                 _buildActionCard(
                   'Add Income',
                   Icons.trending_up,
-                  Colors.green,
+                  AppColors.success,
                   controller.addIncome,
                 ),
                 _buildActionCard(
                   'Add Expense',
                   Icons.trending_down,
-                  Colors.red,
+                  AppColors.error,
                   controller.addExpense,
                 ),
                 _buildActionCard(
                   'View Reports',
                   Icons.bar_chart,
-                  Colors.blue,
+                  AppColors.primary,
                   controller.viewReports,
                 ),
                 _buildActionCard(
                   'Settings',
                   Icons.settings,
-                  Colors.grey,
+                  AppColors.text1_500,
                   controller.openSettings,
                 ),
               ],

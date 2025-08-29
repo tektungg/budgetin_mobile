@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/auth/controllers/auth_controller.dart';
 import 'package:budgetin/utils/functions/error_parser.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 
 class ForgotPasswordController extends GetxController {
   static ForgotPasswordController get to => Get.find();
@@ -60,8 +61,8 @@ class ForgotPasswordController extends GetxController {
           'Berhasil',
           'Email reset password telah dikirim ke ${emailController.text.trim()}',
           snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
+          backgroundColor: AppColors.success,
+          colorText: AppColors.white,
           duration: const Duration(seconds: 2),
         );
 

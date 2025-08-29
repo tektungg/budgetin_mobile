@@ -3,6 +3,7 @@ import "package:get/get.dart";
 import "package:budgetin/constants/asset_constant.dart";
 import "package:budgetin/utils/functions/dialog_utils_function.dart";
 import "package:budgetin/utils/services/api_service.dart";
+import 'package:budgetin/shared/styles/styles.dart';
 import "package:vpack/vpack.dart";
 
 class NoConnectionScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class NoConnectionScreen extends StatelessWidget {
               Text(
                 "Koneksi Internet Anda Sedang Tidak Stabil",
                 style: Get.textTheme.headlineSmall?.copyWith(
-                  color: Colors.black,
+                  color: AppColors.text1_1000,
                   fontWeight: FontWeight.w600,
                 ),
                 textAlign: TextAlign.center,
