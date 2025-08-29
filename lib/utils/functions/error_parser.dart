@@ -53,6 +53,11 @@ class ErrorParser {
       }
     }
 
+    //Handle AuthWeakPasswordException
+    if (errorString.contains('AuthWeakPasswordException')) {
+      return 'Password yang Anda masukkan terlalu lemah. Silakan gunakan kombinasi huruf besar, huruf kecil, dan angka';
+    }
+
     // Handle network errors
     if (errorString.contains('network') ||
         errorString.contains('connection') ||
