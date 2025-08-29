@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/auth/sub_features/sign_up/controllers/sign_up_controller.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 
 class SignUpFooter extends GetView<SignUpController> {
   const SignUpFooter({super.key});
@@ -13,17 +13,15 @@ class SignUpFooter extends GetView<SignUpController> {
         onPressed: controller.goToSignIn,
         child: RichText(
           text: TextSpan(
-            style: TextStyle(
-              fontSize: 16.sp,
-              color: Colors.grey[600],
+            style: AppFonts.primaryRegular16.copyWith(
+              color: AppColors.text1_600,
             ),
             children: [
               const TextSpan(text: 'Already have an account? '),
               TextSpan(
                 text: 'Sign In',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w600,
+                style: AppFonts.primarySemiBold16.copyWith(
+                  color: AppColors.primary,
                 ),
               ),
             ],

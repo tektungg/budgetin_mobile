@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 
 class SignUpHeader extends StatelessWidget {
   const SignUpHeader({super.key});
@@ -11,18 +12,15 @@ class SignUpHeader extends StatelessWidget {
       children: [
         Text(
           'Create Your Account',
-          style: TextStyle(
-            fontSize: 28.sp,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
+          style: AppFonts.brandingBold28.copyWith(
+            color: AppColors.text1_1000,
           ),
         ),
         SizedBox(height: 8.h),
         Text(
           'Fill in your details to get started',
-          style: TextStyle(
-            fontSize: 16.sp,
-            color: Colors.grey[600],
+          style: AppFonts.primaryRegular16.copyWith(
+            color: AppColors.text1_600,
           ),
         ),
       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 
 class ForgotPasswordInstructions extends StatelessWidget {
   const ForgotPasswordInstructions({super.key});
@@ -9,8 +10,8 @@ class ForgotPasswordInstructions extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Colors.blue.shade50,
-        border: Border.all(color: Colors.blue.shade200),
+        color: AppColors.info.withOpacity(0.1),
+        border: Border.all(color: AppColors.info.withOpacity(0.3)),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Column(
@@ -20,16 +21,14 @@ class ForgotPasswordInstructions extends StatelessWidget {
             children: [
               Icon(
                 Icons.info_outline,
-                color: Colors.blue.shade600,
+                color: AppColors.info,
                 size: 20.w,
               ),
               SizedBox(width: 8.w),
               Text(
                 'Instructions',
-                style: TextStyle(
-                  color: Colors.blue.shade700,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
+                style: AppFonts.primarySemiBold16.copyWith(
+                  color: AppColors.info,
                 ),
               ),
             ],
@@ -40,9 +39,8 @@ class ForgotPasswordInstructions extends StatelessWidget {
             '2. Check your email for a password reset link\n'
             '3. Click the link and follow the instructions\n'
             '4. Create a new password for your account',
-            style: TextStyle(
-              color: Colors.blue.shade700,
-              fontSize: 14.sp,
+            style: AppFonts.primaryRegular14.copyWith(
+              color: AppColors.info,
               height: 1.5,
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/auth/sub_features/sign_up/controllers/sign_up_controller.dart';
+import 'package:budgetin/shared/styles/styles.dart';
 
 class SignUpTermsConditions extends GetView<SignUpController> {
   const SignUpTermsConditions({super.key});
@@ -13,13 +13,13 @@ class SignUpTermsConditions extends GetView<SignUpController> {
             Checkbox(
               value: controller.acceptTerms,
               onChanged: controller.toggleAcceptTerms,
+              activeColor: AppColors.primary,
             ),
             Expanded(
               child: Text(
                 'I agree to the Terms and Conditions and Privacy Policy',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: Colors.grey[700],
+                style: AppFonts.primaryRegular14.copyWith(
+                  color: AppColors.text1_700,
                 ),
               ),
             ),
