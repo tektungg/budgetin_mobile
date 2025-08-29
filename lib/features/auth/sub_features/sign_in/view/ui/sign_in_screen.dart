@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/auth/sub_features/sign_in/controllers/sign_in_controller.dart';
-import 'package:budgetin/shared/widgets/custom_text_field.dart';
-import 'package:budgetin/shared/widgets/custom_button.dart';
+import 'package:budgetin/features/auth/sub_features/sign_in/view/components/components.dart';
 
 class SignInScreen extends GetView<SignInController> {
   const SignInScreen({super.key});
@@ -23,216 +22,32 @@ class SignInScreen extends GetView<SignInController> {
                 SizedBox(height: 60.h),
 
                 // Header
-                Center(
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.account_balance_wallet,
-                        size: 80.w,
-                        color: Colors.blue,
-                      ),
-                      SizedBox(height: 16.h),
-                      Text(
-                        'Welcome Back',
-                        style: TextStyle(
-                          fontSize: 28.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        'Sign in to continue to Budgetin',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const SignInHeader(),
 
                 SizedBox(height: 40.h),
 
                 // Error Message Display
-                Obx(() {
-                  final errorMessage = controller.errorMessage;
-                  if (errorMessage.isNotEmpty) {
-                    return Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(12.w),
-                      margin: EdgeInsets.only(bottom: 16.h),
-                      decoration: BoxDecoration(
-                        color: Colors.red.shade50,
-                        border: Border.all(color: Colors.red.shade200),
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.error_outline,
-                            color: Colors.red.shade600,
-                            size: 20.w,
-                          ),
-                          SizedBox(width: 8.w),
-                          Expanded(
-                            child: Text(
-                              errorMessage,
-                              style: TextStyle(
-                                color: Colors.red.shade700,
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                }),
-
-                // Email Field
-                CustomTextField(
-                  labelText: 'Email',
-                  hintText: 'Enter your email',
-                  controller: controller.emailController,
-                  validator: controller.validateEmail,
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIcon: const Icon(Icons.email_outlined),
-                  onChanged: (value) => controller.clearError(),
-                ),
-
-                SizedBox(height: 16.h),
-
-                // Password Field
-                Obx(() => CustomTextField(
-                      labelText: 'Password',
-                      hintText: 'Enter your password',
-                      controller: controller.passwordController,
-                      validator: controller.validatePassword,
-                      obscureText: !controller.isPasswordVisible,
-                      prefixIcon: const Icon(Icons.lock_outline),
-                      onChanged: (value) => controller.clearError(),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          controller.isPasswordVisible
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                        ),
-                        onPressed: controller.togglePasswordVisibility,
-                      ),
+                Obx(() => SignInErrorMessage(
+                      errorMessage: controller.errorMessage,
                     )),
+
+                // Form Fields
+                const SignInFormFields(),
 
                 SizedBox(height: 12.h),
 
                 // Remember Me & Forgot Password
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Obx(() => Row(
-                          children: [
-                            Checkbox(
-                              value: controller.rememberMe,
-                              onChanged: controller.toggleRememberMe,
-                              activeColor: Colors.blue,
-                            ),
-                            Text(
-                              'Remember me',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        )),
-                    TextButton(
-                      onPressed: controller.goToForgotPassword,
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                const SignInOptions(),
 
                 SizedBox(height: 24.h),
 
-                // Sign In Button
-                Obx(() => CustomButton(
-                      text: 'Sign In',
-                      onPressed: controller.signIn,
-                      isLoading: controller.isLoading,
-                      backgroundColor: Colors.blue,
-                    )),
-
-                SizedBox(height: 20.h),
-
-                // Divider
-                Row(
-                  children: [
-                    Expanded(child: Divider(color: Colors.grey[300])),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Text(
-                        'or',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    ),
-                    Expanded(child: Divider(color: Colors.grey[300])),
-                  ],
-                ),
-
-                SizedBox(height: 20.h),
-
-                // Google Sign In Button
-                Obx(() => CustomButton(
-                      text: 'Continue with Google',
-                      onPressed: controller.signInWithGoogle,
-                      isLoading: controller.isLoading,
-                      backgroundColor: Colors.white,
-                      textColor: Colors.grey[800],
-                      icon: Icon(
-                        Icons.g_mobiledata,
-                        size: 24.w,
-                        color: Colors.red,
-                      ),
-                    )),
+                // Action Buttons
+                const SignInActionButtons(),
 
                 SizedBox(height: 30.h),
 
                 // Sign Up Link
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account? ",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: controller.goToSignUp,
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const SignInFooter(),
 
                 SizedBox(height: 40.h),
               ],
