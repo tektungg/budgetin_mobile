@@ -145,4 +145,20 @@ class AuthController extends GetxController {
   void setErrorMessage(String message) {
     _errorMessage.value = message;
   }
+
+  Future<bool> resetPassword(String email) async {
+    try {
+      _isLoading.value = true;
+      _errorMessage.value = '';
+
+      await _supabaseService.resetPassword(email);
+      return true;
+    } catch (e) {
+      final userFriendlyMessage = ErrorParser.parseAuthError(e);
+      _errorMessage.value = userFriendlyMessage;
+      return false;
+    } finally {
+      _isLoading.value = false;
+    }
+  }
 }

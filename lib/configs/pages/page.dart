@@ -11,6 +11,8 @@ import 'package:budgetin/features/auth/sub_features/sign_in/view/ui/sign_in_scre
 import 'package:budgetin/features/auth/sub_features/sign_up/bindings/sign_up_binding.dart';
 import 'package:budgetin/features/auth/sub_features/sign_up/view/ui/sign_up_screen.dart';
 import 'package:budgetin/features/home/screen/ui/home_screen.dart';
+import 'package:budgetin/features/auth/sub_features/forgot_password/bindings/forgot_password_binding.dart';
+import 'package:budgetin/features/auth/sub_features/forgot_password/view/ui/forgot_password_screen.dart';
 
 abstract class Pages {
   static final pages = [
@@ -42,6 +44,11 @@ abstract class Pages {
       name: Routes.homeRoute,
       page: () => const HomeScreen(),
       binding: HomeBinding(),
+    ),
+    GetPage(
+      name: Routes.forgotPasswordRoute,
+      page: () => const ForgotPasswordScreen(),
+      binding: ForgotPasswordBinding(),
     ),
   ];
 }

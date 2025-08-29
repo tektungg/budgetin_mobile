@@ -120,6 +120,10 @@ class SupabaseService extends GetxService {
     await _client.auth.signOut();
   }
 
+  Future<void> resetPassword(String email) async {
+    await _client.auth.resetPasswordForEmail(email);
+  }
+
   // Stream untuk mendengar perubahan auth state
   Stream<AuthState> get authStateChanges => _client.auth.onAuthStateChange;
 }

@@ -11,12 +11,7 @@ class SignUpScreen extends GetView<SignUpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Account'),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
-      ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24.w),
         child: Form(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/auth/controllers/auth_controller.dart';
+import 'package:budgetin/configs/routes/route.dart';
 
 class SignInController extends GetxController {
   static SignInController get to => Get.find();
@@ -69,11 +70,11 @@ class SignInController extends GetxController {
   }
 
   void goToSignUp() {
-    Get.toNamed('/sign-up');
+    Get.toNamed(Routes.signUpRoute);
   }
 
   void goToForgotPassword() {
-    Get.toNamed('/forgot-password');
+    Get.toNamed(Routes.forgotPasswordRoute);
   }
 
   // Validation methods

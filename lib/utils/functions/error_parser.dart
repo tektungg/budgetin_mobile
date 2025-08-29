@@ -40,6 +40,17 @@ class ErrorParser {
       if (errorString.contains('unable_to_validate_email')) {
         return 'Tidak dapat memvalidasi email. Silakan periksa email Anda.';
       }
+      if (errorString.contains('email_not_found') ||
+          errorString.contains('user_not_found')) {
+        return 'Email tidak ditemukan. Pastikan email yang Anda masukkan benar.';
+      }
+      if (errorString.contains('password_reset_limit')) {
+        return 'Terlalu banyak permintaan reset password. Silakan tunggu beberapa saat.';
+      }
+      if (errorString.contains('email_change_sent') ||
+          errorString.contains('password_recovery_sent')) {
+        return 'Email reset password sudah dikirim. Silakan cek email Anda.';
+      }
     }
 
     // Handle network errors
