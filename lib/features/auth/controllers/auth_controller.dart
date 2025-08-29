@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/utils/services/supabase_service.dart';
+import 'package:budgetin/utils/functions/error_parser.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthController extends GetxController {
@@ -51,21 +53,21 @@ class AuthController extends GetxController {
       );
 
       if (response.user != null) {
+        // Show success message for sign up to inform user to check email
         Get.snackbar(
-          'Success',
-          'Account created successfully! Please check your email for verification.',
+          'Berhasil',
+          'Akun berhasil dibuat! Silakan cek email Anda untuk verifikasi.',
           snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
         );
         return true;
       }
       return false;
     } catch (e) {
-      _errorMessage.value = e.toString();
-      Get.snackbar(
-        'Error',
-        e.toString(),
-        snackPosition: SnackPosition.TOP,
-      );
+      final userFriendlyMessage = ErrorParser.parseAuthError(e);
+      _errorMessage.value = userFriendlyMessage;
+      // Error message will be displayed in UI, no need for snackbar
       return false;
     } finally {
       _isLoading.value = false;
@@ -86,21 +88,14 @@ class AuthController extends GetxController {
       );
 
       if (response.user != null) {
-        Get.snackbar(
-          'Success',
-          'Welcome back!',
-          snackPosition: SnackPosition.TOP,
-        );
+        // Success message will be handled by UI if needed
         return true;
       }
       return false;
     } catch (e) {
-      _errorMessage.value = e.toString();
-      Get.snackbar(
-        'Error',
-        e.toString(),
-        snackPosition: SnackPosition.TOP,
-      );
+      final userFriendlyMessage = ErrorParser.parseAuthError(e);
+      _errorMessage.value = userFriendlyMessage;
+      // Error message will be displayed in UI, no need for snackbar
       return false;
     } finally {
       _isLoading.value = false;
@@ -115,21 +110,14 @@ class AuthController extends GetxController {
       final success = await _supabaseService.signInWithGoogle();
 
       if (success) {
-        Get.snackbar(
-          'Success',
-          'Signed in with Google successfully!',
-          snackPosition: SnackPosition.TOP,
-        );
+        // Success message will be handled by UI if needed
         return true;
       }
       return false;
     } catch (e) {
-      _errorMessage.value = e.toString();
-      Get.snackbar(
-        'Error',
-        e.toString(),
-        snackPosition: SnackPosition.TOP,
-      );
+      final userFriendlyMessage = ErrorParser.parseAuthError(e);
+      _errorMessage.value = userFriendlyMessage;
+      // Error message will be displayed in UI, no need for snackbar
       return false;
     } finally {
       _isLoading.value = false;
@@ -140,18 +128,11 @@ class AuthController extends GetxController {
     try {
       _isLoading.value = true;
       await _supabaseService.signOut();
-      Get.snackbar(
-        'Success',
-        'Signed out successfully!',
-        snackPosition: SnackPosition.TOP,
-      );
+      // Success message will be handled by UI if needed
     } catch (e) {
-      _errorMessage.value = e.toString();
-      Get.snackbar(
-        'Error',
-        e.toString(),
-        snackPosition: SnackPosition.TOP,
-      );
+      final userFriendlyMessage = ErrorParser.parseAuthError(e);
+      _errorMessage.value = userFriendlyMessage;
+      // Error message will be displayed in UI, no need for snackbar
     } finally {
       _isLoading.value = false;
     }
@@ -159,5 +140,9 @@ class AuthController extends GetxController {
 
   void clearError() {
     _errorMessage.value = '';
+  }
+
+  void setErrorMessage(String message) {
+    _errorMessage.value = message;
   }
 }

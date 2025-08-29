@@ -37,11 +37,8 @@ class SignInController extends GetxController {
     formKey = GlobalKey<FormState>();
   }
 
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
+  void clearError() {
+    _authController.clearError();
   }
 
   void togglePasswordVisibility() {
@@ -55,32 +52,20 @@ class SignInController extends GetxController {
   Future<void> signIn() async {
     if (!formKey.currentState!.validate()) return;
 
-    final success = await _authController.signIn(
+    await _authController.signIn(
       email: emailController.text.trim(),
       password: passwordController.text,
     );
 
     // AuthStateService akan handle redirect, jadi tidak perlu manual redirect
-    if (!success) {
-      Get.snackbar(
-        'Error',
-        'Failed to sign in. Please check your credentials.',
-        snackPosition: SnackPosition.TOP,
-      );
-    }
+    // Error message sudah ditampilkan melalui UI error display
   }
 
   Future<void> signInWithGoogle() async {
-    final success = await _authController.signInWithGoogle();
+    await _authController.signInWithGoogle();
 
     // AuthStateService akan handle redirect, jadi tidak perlu manual redirect
-    if (!success) {
-      Get.snackbar(
-        'Error',
-        'Failed to sign in with Google. Please try again.',
-        snackPosition: SnackPosition.TOP,
-      );
-    }
+    // Error message sudah ditampilkan melalui UI error display
   }
 
   void goToSignUp() {

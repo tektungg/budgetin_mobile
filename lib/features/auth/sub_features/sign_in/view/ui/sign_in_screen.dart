@@ -54,6 +54,43 @@ class SignInScreen extends GetView<SignInController> {
 
                 SizedBox(height: 40.h),
 
+                // Error Message Display
+                Obx(() {
+                  final errorMessage = controller.errorMessage;
+                  if (errorMessage.isNotEmpty) {
+                    return Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(12.w),
+                      margin: EdgeInsets.only(bottom: 16.h),
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade50,
+                        border: Border.all(color: Colors.red.shade200),
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            color: Colors.red.shade600,
+                            size: 20.w,
+                          ),
+                          SizedBox(width: 8.w),
+                          Expanded(
+                            child: Text(
+                              errorMessage,
+                              style: TextStyle(
+                                color: Colors.red.shade700,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                }),
+
                 // Email Field
                 CustomTextField(
                   labelText: 'Email',
@@ -62,6 +99,7 @@ class SignInScreen extends GetView<SignInController> {
                   validator: controller.validateEmail,
                   keyboardType: TextInputType.emailAddress,
                   prefixIcon: const Icon(Icons.email_outlined),
+                  onChanged: (value) => controller.clearError(),
                 ),
 
                 SizedBox(height: 16.h),
@@ -74,6 +112,7 @@ class SignInScreen extends GetView<SignInController> {
                       validator: controller.validatePassword,
                       obscureText: !controller.isPasswordVisible,
                       prefixIcon: const Icon(Icons.lock_outline),
+                      onChanged: (value) => controller.clearError(),
                       suffixIcon: IconButton(
                         icon: Icon(
                           controller.isPasswordVisible
