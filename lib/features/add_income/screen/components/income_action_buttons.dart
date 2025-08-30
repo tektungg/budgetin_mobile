@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:budgetin/features/add_expense/controllers/add_expense_controller.dart';
+import 'package:budgetin/features/add_income/controllers/add_income_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
 
-class ActionButtons extends GetView<AddExpenseController> {
-  const ActionButtons({super.key});
+class IncomeActionButtons extends GetView<AddIncomeController> {
+  const IncomeActionButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class ActionButtons extends GetView<AddExpenseController> {
             flex: 2,
             child: Obx(() {
               return ElevatedButton(
-                onPressed: controller.isLoading ? null : controller.saveExpense,
+                onPressed: controller.isLoading ? null : controller.saveIncome,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   foregroundColor: AppColors.white,
@@ -83,7 +83,7 @@ class ActionButtons extends GetView<AddExpenseController> {
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            'Simpan Pengeluaran',
+                            'Simpan Pemasukan',
                             style: AppFonts.primarySemiBold16.copyWith(
                               color: AppColors.white,
                             ),

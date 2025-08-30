@@ -1,5 +1,7 @@
 import 'package:budgetin/features/add_expense/bindings/add_expense_binding.dart';
 import 'package:budgetin/features/add_expense/screen/ui/add_expense_screen.dart';
+import 'package:budgetin/features/add_income/bindings/add_income_binding.dart';
+import 'package:budgetin/features/add_income/screen/ui/add_income_screen.dart';
 import 'package:budgetin/features/home/bindings/home_binding.dart';
 import 'package:budgetin/features/report/bindings/report_binding.dart';
 import 'package:budgetin/features/report/screen/ui/report_screen.dart';
@@ -112,6 +114,11 @@ abstract class Pages {
       name: Routes.addExpenseRoute,
       page: () => const AddExpenseScreen(),
       binding: AddExpenseBinding(),
+    ),
+  GetPage(
+      name: Routes.addIncomeRoute,
+      page: () => const AddIncomeScreen(),
+      binding: AddIncomeBinding(),
     ),
   ];
 }

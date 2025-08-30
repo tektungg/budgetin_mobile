@@ -40,7 +40,7 @@ class HomeController extends GetxController {
   }
 
   void navigateToAddIncome() {
-    Get.toNamed('/add-income');
+    Get.toNamed(Routes.addIncomeRoute);
   }
 
   void navigateToAddExpense() {

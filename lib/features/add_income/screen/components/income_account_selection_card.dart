@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:budgetin/features/add_expense/controllers/add_expense_controller.dart';
+import 'package:budgetin/features/add_income/controllers/add_income_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
 
-class AccountSelectionCard extends GetView<AddExpenseController> {
-  const AccountSelectionCard({super.key});
+class IncomeAccountSelectionCard extends GetView<AddIncomeController> {
+  const IncomeAccountSelectionCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
               ),
               SizedBox(width: 8.w),
               Text(
-                'Dari Akun *',
+                'Ke Akun *',
                 style: AppFonts.primaryBold16.copyWith(
                   color: AppColors.text1_1000,
                 ),
@@ -59,7 +59,7 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
                     ? controller.formData.account
                     : null,
                 hint: Text(
-                  'Pilih akun sumber dana',
+                  'Pilih akun tujuan',
                   style: AppFonts.primaryRegular16.copyWith(
                     color: AppColors.text1_400,
                   ),
@@ -118,8 +118,6 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
             final selectedAccount = controller.selectedAccount;
             if (selectedAccount != null) {
               final amount = double.tryParse(controller.formData.amount);
-              final isInsufficientBalance =
-                  amount != null && amount > selectedAccount.balance;
 
               return Padding(
                 padding: EdgeInsets.only(top: 16.h),
@@ -127,18 +125,15 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
                   width: double.infinity,
                   padding: EdgeInsets.all(12.w),
                   decoration: BoxDecoration(
-                    color: isInsufficientBalance
-                        ? AppColors.error.withOpacity(0.1)
-                        : AppColors.info.withOpacity(0.1),
+                    color: AppColors.success.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8.r),
                     border: Border.all(
-                      color: isInsufficientBalance
-                          ? AppColors.error.withOpacity(0.3)
-                          : AppColors.info.withOpacity(0.3),
+                      color: AppColors.success.withOpacity(0.3),
                     ),
                   ),
                   child: Column(
                     children: [
+                      // Current Balance
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -147,17 +142,13 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
                               Icon(
                                 selectedAccount.icon,
                                 size: 16.w,
-                                color: isInsufficientBalance
-                                    ? AppColors.error
-                                    : AppColors.info,
+                                color: AppColors.success,
                               ),
                               SizedBox(width: 8.w),
                               Text(
                                 'Saldo ${selectedAccount.name}',
                                 style: AppFonts.primarySemiBold12.copyWith(
-                                  color: isInsufficientBalance
-                                      ? AppColors.error
-                                      : AppColors.info,
+                                  color: AppColors.success,
                                 ),
                               ),
                             ],
@@ -165,40 +156,14 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
                           Text(
                             controller.formatCurrency(selectedAccount.balance),
                             style: AppFonts.primaryBold14.copyWith(
-                              color: isInsufficientBalance
-                                  ? AppColors.error
-                                  : AppColors.info,
+                              color: AppColors.success,
                             ),
                           ),
                         ],
                       ),
 
-                      // Insufficient balance warning
-                      if (isInsufficientBalance)
-                        Padding(
-                          padding: EdgeInsets.only(top: 8.h),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.warning,
-                                size: 14.w,
-                                color: AppColors.error,
-                              ),
-                              SizedBox(width: 4.w),
-                              Text(
-                                'Saldo tidak mencukupi',
-                                style: AppFonts.primaryRegular12.copyWith(
-                                  color: AppColors.error,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                      // Balance after expense
-                      if (amount != null &&
-                          amount > 0 &&
-                          !isInsufficientBalance)
+                      // Balance after income
+                      if (amount != null && amount > 0)
                         Padding(
                           padding: EdgeInsets.only(top: 8.h),
                           child: Container(
@@ -206,7 +171,7 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
                             decoration: BoxDecoration(
                               border: Border(
                                 top: BorderSide(
-                                  color: AppColors.info.withOpacity(0.3),
+                                  color: AppColors.success.withOpacity(0.3),
                                   width: 1,
                                 ),
                               ),
@@ -215,16 +180,16 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Saldo setelah pengeluaran:',
+                                  'Saldo setelah pemasukan:',
                                   style: AppFonts.primaryRegular12.copyWith(
-                                    color: AppColors.info,
+                                    color: AppColors.success,
                                   ),
                                 ),
                                 Text(
                                   controller.formatCurrency(
-                                      controller.balanceAfterExpense),
+                                      controller.balanceAfterIncome),
                                   style: AppFonts.primaryBold14.copyWith(
-                                    color: AppColors.info,
+                                    color: AppColors.success,
                                   ),
                                 ),
                               ],

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:budgetin/features/add_expense/models/expense_model.dart';
+import 'package:budgetin/features/add_income/models/income_model.dart';
 import 'package:budgetin/shared/styles/styles.dart';
 import 'package:budgetin/configs/routes/route.dart';
 import 'package:intl/intl.dart';
 
-class AddExpenseController extends GetxController {
-  static AddExpenseController get to => Get.find();
+class AddIncomeController extends GetxController {
+  static AddIncomeController get to => Get.find();
 
   // Form data
-  final Rx<ExpenseFormData> _formData = ExpenseFormData(
+  final Rx<IncomeFormData> _formData = IncomeFormData(
     amount: '',
     description: '',
     category: '',
@@ -18,7 +18,7 @@ class AddExpenseController extends GetxController {
     notes: '',
   ).obs;
 
-  ExpenseFormData get formData => _formData.value;
+  IncomeFormData get formData => _formData.value;
 
   // Loading state
   final RxBool _isLoading = false.obs;
@@ -30,20 +30,20 @@ class AddExpenseController extends GetxController {
   final notesController = TextEditingController();
 
   // Static data
-  final List<Account> accounts = [
-    const Account(
+  final List<IncomeAccount> accounts = [
+    const IncomeAccount(
       id: 'cash',
       name: 'Cash',
       icon: Icons.account_balance_wallet,
       balance: 750000,
     ),
-    const Account(
+    const IncomeAccount(
       id: 'bri',
       name: 'BRI',
       icon: Icons.account_balance,
       balance: 1500000,
     ),
-    const Account(
+    const IncomeAccount(
       id: 'gopay',
       name: 'Gopay',
       icon: Icons.phone_android,
@@ -51,60 +51,54 @@ class AddExpenseController extends GetxController {
     ),
   ];
 
-  final List<ExpenseCategory> categories = [
-    ExpenseCategory(
-      id: 'food',
-      name: 'Makanan & Minuman',
-      icon: Icons.restaurant,
-      color: AppColors.warning.withOpacity(0.2),
-    ),
-    ExpenseCategory(
-      id: 'transport',
-      name: 'Transportasi',
-      icon: Icons.directions_car,
+  final List<IncomeCategory> categories = [
+    IncomeCategory(
+      id: 'salary',
+      name: 'Gaji',
+      icon: Icons.work,
       color: AppColors.info.withOpacity(0.2),
     ),
-    ExpenseCategory(
-      id: 'shopping',
-      name: 'Belanja',
-      icon: Icons.shopping_bag,
+    IncomeCategory(
+      id: 'freelance',
+      name: 'Freelance',
+      icon: Icons.trending_up,
       color: AppColors.secondary.withOpacity(0.2),
     ),
-    ExpenseCategory(
-      id: 'entertainment',
-      name: 'Hiburan',
-      icon: Icons.games,
-      color: AppColors.error.withOpacity(0.2),
+    IncomeCategory(
+      id: 'business',
+      name: 'Bisnis',
+      icon: Icons.business,
+      color: AppColors.success.withOpacity(0.2),
     ),
-    ExpenseCategory(
-      id: 'health',
-      name: 'Kesehatan',
-      icon: Icons.favorite,
-      color: AppColors.error.withOpacity(0.2),
-    ),
-    ExpenseCategory(
-      id: 'education',
-      name: 'Pendidikan',
-      icon: Icons.school,
-      color: AppColors.primary.withOpacity(0.2),
-    ),
-    ExpenseCategory(
-      id: 'bills',
-      name: 'Tagihan',
-      icon: Icons.receipt,
-      color: AppColors.text1_300,
-    ),
-    ExpenseCategory(
-      id: 'gifts',
-      name: 'Hadiah',
-      icon: Icons.card_giftcard,
+    IncomeCategory(
+      id: 'investment',
+      name: 'Investasi',
+      icon: Icons.savings,
       color: AppColors.warning.withOpacity(0.2),
     ),
-    ExpenseCategory(
-      id: 'home',
-      name: 'Rumah Tangga',
-      icon: Icons.home,
-      color: AppColors.success.withOpacity(0.2),
+    IncomeCategory(
+      id: 'bonus',
+      name: 'Bonus',
+      icon: Icons.emoji_events,
+      color: AppColors.warning.withOpacity(0.2),
+    ),
+    IncomeCategory(
+      id: 'gift',
+      name: 'Hadiah',
+      icon: Icons.card_giftcard,
+      color: AppColors.error.withOpacity(0.2),
+    ),
+    IncomeCategory(
+      id: 'loan',
+      name: 'Pinjaman',
+      icon: Icons.payments,
+      color: AppColors.error.withOpacity(0.2),
+    ),
+    IncomeCategory(
+      id: 'other',
+      name: 'Lainnya',
+      icon: Icons.more_horiz,
+      color: AppColors.text1_300,
     ),
   ];
 
@@ -149,7 +143,7 @@ class AddExpenseController extends GetxController {
   }
 
   // Get selected account
-  Account? get selectedAccount {
+  IncomeAccount? get selectedAccount {
     return accounts
         .firstWhereOrNull((account) => account.id == formData.account);
   }
@@ -164,12 +158,12 @@ class AddExpenseController extends GetxController {
     return formatter.format(amount);
   }
 
-  // Get balance after expense
-  double get balanceAfterExpense {
+  // Get balance after income
+  double get balanceAfterIncome {
     final selectedAcc = selectedAccount;
     final amount = double.tryParse(formData.amount) ?? 0;
     if (selectedAcc != null) {
-      return selectedAcc.balance - amount;
+      return selectedAcc.balance + amount;
     }
     return 0;
   }
@@ -194,19 +188,7 @@ class AddExpenseController extends GetxController {
     if (amount == null || amount <= 0) {
       Get.snackbar(
         'Error',
-        'Jumlah pengeluaran harus berupa angka yang valid',
-        backgroundColor: AppColors.error,
-        colorText: AppColors.white,
-        snackPosition: SnackPosition.TOP,
-      );
-      return false;
-    }
-
-    final selectedAcc = selectedAccount;
-    if (selectedAcc != null && amount > selectedAcc.balance) {
-      Get.snackbar(
-        'Error',
-        'Saldo ${selectedAcc.name} tidak mencukupi',
+        'Jumlah pemasukan harus berupa angka yang valid',
         backgroundColor: AppColors.error,
         colorText: AppColors.white,
         snackPosition: SnackPosition.TOP,
@@ -217,8 +199,8 @@ class AddExpenseController extends GetxController {
     return true;
   }
 
-  // Save expense
-  Future<void> saveExpense() async {
+  // Save income
+  Future<void> saveIncome() async {
     if (!_validateForm()) return;
 
     _isLoading.value = true;
@@ -229,7 +211,7 @@ class AddExpenseController extends GetxController {
 
       Get.snackbar(
         'Success',
-        'Pengeluaran berhasil disimpan!',
+        'Pemasukan berhasil disimpan!',
         backgroundColor: AppColors.success,
         colorText: AppColors.white,
         snackPosition: SnackPosition.TOP,
@@ -240,7 +222,7 @@ class AddExpenseController extends GetxController {
     } catch (error) {
       Get.snackbar(
         'Error',
-        'Gagal menyimpan pengeluaran. Silakan coba lagi.',
+        'Gagal menyimpan pemasukan. Silakan coba lagi.',
         backgroundColor: AppColors.error,
         colorText: AppColors.white,
         snackPosition: SnackPosition.TOP,
