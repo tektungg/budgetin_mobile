@@ -1,0 +1,4 @@
+class HelpRepository {
+  HelpRepository._();
+}
+    

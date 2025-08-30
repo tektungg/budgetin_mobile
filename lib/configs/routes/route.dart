@@ -11,4 +11,9 @@ static const String forgotPasswordRoute = '/forgot_password';
 static const String transactionRoute = '/transaction';
 static const String settingRoute = '/setting';
 static const String reportRoute = '/report';
+static const String editProfileRoute = '/edit_profile';
+static const String accountManagementRoute = '/account_management';
+static const String settingsRoute = '/settings';
+static const String helpRoute = '/help';
+static const String aboutRoute = '/about';
 }

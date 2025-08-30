@@ -1,0 +1,4 @@
+class AccountManagementRepository {
+  AccountManagementRepository._();
+}
+    

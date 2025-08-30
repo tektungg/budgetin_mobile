@@ -1,0 +1,4 @@
+class AboutRepository {
+  AboutRepository._();
+}
+    
