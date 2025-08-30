@@ -4,14 +4,14 @@ class AppColors {
   AppColors._();
 
   // Primary Colors
-  static const Color primary = Color(0xFF007BFF);
-  static const Color primaryLight = Color(0xFF4DA3FF);
-  static const Color primaryDark = Color(0xFF0056B3);
+  static const Color primary = Color(0xFF13467D);
+  static const Color primaryLight = Color(0xFF4A6B9A);
+  static const Color primaryDark = Color(0xFF0D2F55);
 
   // Secondary Colors
-  static const Color secondary = Color(0xFF6C757D);
-  static const Color secondaryLight = Color(0xFF9FA6B0);
-  static const Color secondaryDark = Color(0xFF495057);
+  static const Color secondary = Color(0xFF7EB746);
+  static const Color secondaryLight = Color(0xFF9BC768);
+  static const Color secondaryDark = Color(0xFF5A8431);
 
   // Success Colors
   static const Color success = Color(0xFF28A745);
@@ -77,13 +77,13 @@ class AppColors {
 
   // Gradient Colors
   static const List<Color> primaryGradient = [
-    Color(0xFF007BFF),
-    Color(0xFF0056B3),
+    Color(0xFF13467D),
+    Color(0xFF0D2F55),
   ];
 
   static const List<Color> secondaryGradient = [
-    Color(0xFF6C757D),
-    Color(0xFF495057),
+    Color(0xFF7EB746),
+    Color(0xFF5A8431),
   ];
 
   static const List<Color> successGradient = [
