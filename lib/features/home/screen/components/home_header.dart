@@ -15,7 +15,7 @@ class HomeHeader extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.21,
+      height: MediaQuery.of(context).size.height * 0.22,
       child: Stack(
         children: [
           // Primary background container

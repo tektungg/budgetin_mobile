@@ -13,41 +13,69 @@ class HomeScreen extends GetView<HomeController> {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            // Header with total balance
-            const HomeHeader(),
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            // Header as SliverPersistentHeader
+            SliverPersistentHeader(
+              pinned: false,
+              floating: false,
+              delegate: _HomeHeaderDelegate(
+                minHeight: 80.h,
+                maxHeight: MediaQuery.of(context).size.height * 0.22,
+              ),
+            ),
 
             // Main scrollable content
-            Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    // Spacing for header
-                    SizedBox(height: 20.h),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                // Spacing for smooth transition
+                SizedBox(height: 10.h),
 
-                    // Account Balance
-                    const AccountBalance(),
+                // Account Balance
+                const AccountBalance(),
 
-                    SizedBox(height: 24.h),
+                SizedBox(height: 20.h),
 
-                    // Monthly Income/Expense
-                    const MonthlySummary(),
+                // Monthly Income/Expense
+                const MonthlySummary(),
 
-                    SizedBox(height: 24.h),
+                // Recent Transactions
+                const RecentTransactions(),
 
-                    // Recent Transactions
-                    const RecentTransactions(),
-
-                    SizedBox(height: 24.h),
-                  ],
-                ),
-              ),
+                SizedBox(height: 20.h),
+              ]),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class _HomeHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+
+  _HomeHeaderDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+  });
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return const HomeHeader();
+  }
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }

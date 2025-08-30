@@ -40,7 +40,6 @@ class RecentTransactions extends GetView<TransactionController> {
             ],
           ),
         ),
-        SizedBox(height: 16.h),
         // Transaction List (Recent only - 4 items)
         Obx(() => TransactionList(
               transactions: controller.recentTransactions,

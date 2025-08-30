@@ -15,6 +15,8 @@ class CustomTextField extends StatelessWidget {
   final bool readOnly;
   final int maxLines;
   final void Function(String)? onChanged;
+  final VoidCallback? onEditingComplete;
+  final FocusNode? focusNode;
 
   const CustomTextField({
     super.key,
@@ -30,6 +32,8 @@ class CustomTextField extends StatelessWidget {
     this.readOnly = false,
     this.maxLines = 1,
     this.onChanged,
+    this.onEditingComplete,
+    this.focusNode,
   });
 
   @override
@@ -52,11 +56,16 @@ class CustomTextField extends StatelessWidget {
           key: ValueKey(controller
               .hashCode), // Tambah key untuk memastikan widget rebuild properly
           controller: controller,
+          focusNode: focusNode,
           validator: validator,
           obscureText: obscureText,
           keyboardType: keyboardType,
           onTap: onTap,
           onChanged: onChanged,
+          onEditingComplete: onEditingComplete ??
+              () {
+                FocusScope.of(context).nextFocus();
+              },
           readOnly: readOnly,
           maxLines: maxLines,
           decoration: InputDecoration(
@@ -65,8 +74,16 @@ class CustomTextField extends StatelessWidget {
               color: AppColors.text1_400,
               fontSize: 14.sp,
             ),
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
+            prefixIcon: prefixIcon != null
+                ? ExcludeFocus(
+                    child: prefixIcon!,
+                  )
+                : null,
+            suffixIcon: suffixIcon != null
+                ? ExcludeFocus(
+                    child: suffixIcon!,
+                  )
+                : null,
             filled: true,
             fillColor: AppColors.white,
             border: OutlineInputBorder(
