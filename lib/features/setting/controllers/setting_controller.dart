@@ -8,9 +8,6 @@ class SettingController extends GetxController {
 
   late AuthController _authController;
 
-  // Observable variables
-  final RxString _activeTab = 'profile'.obs;
-
   // Getters
   User? get currentUser => _authController.currentUser;
 
@@ -90,11 +87,6 @@ class SettingController extends GetxController {
         },
       ];
 
-  // Navigation methods
-  void setActiveTab(String tab) {
-    _activeTab.value = tab;
-  }
-
   void navigateToEditProfile() {
     // Navigate to edit profile screen
     Get.toNamed(Routes.editProfileRoute);
@@ -107,28 +99,17 @@ class SettingController extends GetxController {
 
   void navigateToSettings() {
     // Navigate to settings screen
-    Get.snackbar('Info', 'Settings feature coming soon!');
+    Get.toNamed(Routes.settingsRoute);
   }
 
   void navigateToHelp() {
     // Navigate to help screen
-    Get.snackbar('Info', 'Help & FAQ feature coming soon!');
+    Get.toNamed(Routes.helpRoute);
   }
 
   void navigateToAbout() {
     // Navigate to about screen
-    Get.snackbar('Info', 'About feature coming soon!');
-  }
-
-  void navigateToHome() {
-    setActiveTab('home');
-    Get.offAllNamed(Routes.homeRoute);
-  }
-
-  void navigateToReports() {
-    setActiveTab('reports');
-    // Navigate to reports screen
-    Get.snackbar('Info', 'Reports feature coming soon!');
+    Get.toNamed(Routes.aboutRoute);
   }
 
   void logout() {

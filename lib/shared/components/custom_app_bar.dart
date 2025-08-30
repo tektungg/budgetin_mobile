@@ -2,6 +2,7 @@ import 'package:budgetin/shared/styles/app_colors.dart';
 import 'package:budgetin/shared/styles/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -72,9 +73,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (leading != null) {
       leadingWidget = leading;
     } else if (onLeadingPressed != null || leadingIcon != null) {
-      leadingWidget = IconButton(
-        icon: Icon(leadingIcon ?? Icons.arrow_back_ios_new),
-        onPressed: onLeadingPressed ?? () => Get.back(),
+      leadingWidget = Padding(
+        padding: EdgeInsets.all(12.w),
+        child: GestureDetector(
+          onTap: () => Get.back(),
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.white.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+            child: Icon(
+              Icons.arrow_back,
+              color: AppColors.white,
+              size: 20.w,
+            ),
+          ),
+        ),
       );
     }
 
