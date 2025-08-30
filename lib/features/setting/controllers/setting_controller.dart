@@ -102,7 +102,7 @@ class SettingController extends GetxController {
 
   void navigateToAccountManagement() {
     // Navigate to account management screen
-    Get.snackbar('Info', 'Account Management feature coming soon!');
+    Get.toNamed(Routes.accountManagementRoute);
   }
 
   void navigateToSettings() {
