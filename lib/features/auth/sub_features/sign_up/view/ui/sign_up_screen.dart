@@ -34,11 +34,6 @@ class SignUpScreen extends GetView<SignUpController> {
               // Form Fields
               const SignUpFormFields(),
 
-              SizedBox(height: 20.h),
-
-              // Terms and Conditions
-              const SignUpTermsConditions(),
-
               SizedBox(height: 30.h),
 
               // Sign Up Button

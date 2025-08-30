@@ -77,10 +77,6 @@ class SignUpController extends GetxController {
     _isConfirmPasswordVisible.value = !_isConfirmPasswordVisible.value;
   }
 
-  void toggleAcceptTerms(bool? value) {
-    _acceptTerms.value = value ?? false;
-  }
-
   String? validateFullName(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Full name is required';
@@ -123,12 +119,6 @@ class SignUpController extends GetxController {
 
   Future<void> signUp() async {
     if (!formKey.currentState!.validate()) return;
-
-    if (!acceptTerms) {
-      _authController.setErrorMessage(
-          'Anda harus menyetujui syarat dan ketentuan untuk melanjutkan pendaftaran.');
-      return;
-    }
 
     final success = await _authController.signUp(
       email: emailController.text.trim(),
