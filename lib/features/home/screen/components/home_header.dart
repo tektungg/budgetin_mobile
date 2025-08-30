@@ -1,3 +1,4 @@
+import 'package:budgetin/configs/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -78,36 +79,39 @@ class HomeHeader extends GetView<HomeController> {
             top: MediaQuery.of(context).size.height * 0.09,
             left: 24.w,
             right: 24.w,
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(20.w),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(16.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.black.withValues(alpha: 0.1),
-                    blurRadius: 10.r,
-                    offset: Offset(0, 4.h),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'Total Balance',
-                    style: AppFonts.primaryRegular14.copyWith(
-                      color: AppColors.text1_600,
+            child: GestureDetector(
+              onDoubleTap: () => Get.toNamed(Routes.reportRoute),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(20.w),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(16.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black.withValues(alpha: 0.1),
+                      blurRadius: 10.r,
+                      offset: Offset(0, 4.h),
                     ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Text(
-                    totalBalance,
-                    style: AppFonts.primaryBold28.copyWith(
-                      color: AppColors.text1_1000,
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Total Balance',
+                      style: AppFonts.primaryRegular14.copyWith(
+                        color: AppColors.text1_600,
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 8.h),
+                    Text(
+                      totalBalance,
+                      style: AppFonts.primaryBold28.copyWith(
+                        color: AppColors.text1_1000,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

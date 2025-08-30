@@ -1,5 +1,5 @@
 import 'package:budgetin/features/setting/controllers/setting_controller.dart';
-import 'package:budgetin/shared/controllers/auth_controller.dart';
+import 'package:budgetin/features/auth/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 
 class SettingBinding extends Bindings {

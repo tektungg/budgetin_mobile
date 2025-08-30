@@ -1,0 +1,4 @@
+class ReportRepository {
+  ReportRepository._();
+}
+    

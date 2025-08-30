@@ -1,6 +1,8 @@
+import 'package:budgetin/configs/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:get/get.dart';
 
 class AccountBalance extends StatelessWidget {
   final List<Map<String, dynamic>> accountData;
@@ -30,39 +32,42 @@ class AccountBalance extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w),
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(16.w),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: AppColors.border),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Account Balance',
-              style: AppFonts.primaryBold16.copyWith(
-                color: AppColors.text1_1000,
+      child: GestureDetector(
+        onDoubleTap: () => Get.toNamed(Routes.settingRoute),
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(16.w),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Account Balance',
+                style: AppFonts.primaryBold16.copyWith(
+                  color: AppColors.text1_1000,
+                ),
               ),
-            ),
-            SizedBox(height: 16.h),
-            ...accountData.asMap().entries.map((entry) {
-              final index = entry.key;
-              final account = entry.value;
-              return Column(
-                children: [
-                  _buildAccountBalanceRow(
-                    accountType: account['name'],
-                    balance: account['balance'],
-                    icon: account['icon'],
-                  ),
-                  if (index < accountData.length - 1) SizedBox(height: 12.h),
-                ],
-              );
-            }),
-          ],
+              SizedBox(height: 16.h),
+              ...accountData.asMap().entries.map((entry) {
+                final index = entry.key;
+                final account = entry.value;
+                return Column(
+                  children: [
+                    _buildAccountBalanceRow(
+                      accountType: account['name'],
+                      balance: account['balance'],
+                      icon: account['icon'],
+                    ),
+                    if (index < accountData.length - 1) SizedBox(height: 12.h),
+                  ],
+                );
+              }),
+            ],
+          ),
         ),
       ),
     );
@@ -78,7 +83,7 @@ class AccountBalance extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(8.w),
           decoration: BoxDecoration(
-            color: AppColors.primary.withValues(alpha:0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8.r),
           ),
           child: Icon(

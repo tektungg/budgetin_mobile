@@ -1,4 +1,6 @@
 import 'package:budgetin/features/home/bindings/home_binding.dart';
+import 'package:budgetin/features/report/bindings/report_binding.dart';
+import 'package:budgetin/features/report/screen/ui/report_screen.dart';
 import 'package:budgetin/features/setting/bindings/setting_binding.dart';
 import 'package:budgetin/features/setting/screen/ui/setting_screen.dart';
 import 'package:budgetin/features/transaction/bindings/transaction_binding.dart';
@@ -63,6 +65,11 @@ abstract class Pages {
       name: Routes.settingRoute,
       page: () => const SettingScreen(),
       binding: SettingBinding(),
+    ),
+  GetPage(
+      name: Routes.reportRoute,
+      page: () => const ReportScreen(),
+      binding: ReportBinding(),
     ),
   ];
 }
