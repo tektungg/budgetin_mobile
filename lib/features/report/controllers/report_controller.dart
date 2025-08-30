@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:budgetin/configs/routes/route.dart';
 
 class ReportController extends GetxController {
   static ReportController get to => Get.find();
@@ -7,12 +6,10 @@ class ReportController extends GetxController {
   // Observable variables
   final RxString _selectedPeriod = 'thisMonth'.obs;
   final RxString _selectedTab = 'overview'.obs;
-  final RxString _activeTab = 'reports'.obs;
 
   // Getters
   String get selectedPeriod => _selectedPeriod.value;
   String get selectedTab => _selectedTab.value;
-  String get activeTab => _activeTab.value;
 
   // Period options
   List<Map<String, String>> get periods => [
@@ -99,26 +96,8 @@ class ReportController extends GetxController {
     _selectedTab.value = tab;
   }
 
-  void setActiveTab(String tab) {
-    _activeTab.value = tab;
-  }
-
-  void navigateToHome() {
-    setActiveTab('home');
-    Get.offAllNamed(Routes.homeRoute);
-  }
-
-  void navigateToProfile() {
-    setActiveTab('profile');
-    Get.offAllNamed(Routes.settingRoute);
-  }
-
   void downloadReport() {
     Get.snackbar('Info', 'Download feature coming soon!');
-  }
-
-  void filterReport() {
-    Get.snackbar('Info', 'Filter feature coming soon!');
   }
 
   String formatCurrency(double amount) {

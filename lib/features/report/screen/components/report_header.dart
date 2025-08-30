@@ -16,6 +16,7 @@ class ReportHeader extends GetView<ReportController> {
           // Period Selector
           Expanded(
             child: Container(
+              height: 50.h,
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
               decoration: BoxDecoration(
                 color: AppColors.white,
@@ -64,6 +65,7 @@ class ReportHeader extends GetView<ReportController> {
 
           // Download Button
           Container(
+            height: 50.h,
             padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
             decoration: BoxDecoration(
               color: AppColors.white,
