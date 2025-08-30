@@ -1,3 +1,4 @@
+import 'package:budgetin/constants/asset_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:budgetin/shared/styles/styles.dart';
@@ -10,10 +11,9 @@ class SignInHeader extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Icon(
-            Icons.account_balance_wallet,
-            size: 80.w,
-            color: AppColors.primary,
+          Image.asset(
+            AssetConstants.logoBudgetin,
+            width: 120.w,
           ),
           SizedBox(height: 16.h),
           Text(

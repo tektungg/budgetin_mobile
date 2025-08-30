@@ -12,6 +12,8 @@ class CustomButton extends StatelessWidget {
   final double? height;
   final double? borderRadius;
   final Widget? icon;
+  final Color? borderColor;
+  final double? borderWidth;
 
   const CustomButton({
     super.key,
@@ -24,6 +26,8 @@ class CustomButton extends StatelessWidget {
     this.height,
     this.borderRadius,
     this.icon,
+    this.borderColor,
+    this.borderWidth,
   });
 
   @override
@@ -38,6 +42,9 @@ class CustomButton extends StatelessWidget {
           foregroundColor: textColor ?? AppColors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 12.r),
+            side: borderColor != null
+                ? BorderSide(color: borderColor!, width: borderWidth ?? 1)
+                : BorderSide.none,
           ),
           elevation: 0,
         ),
