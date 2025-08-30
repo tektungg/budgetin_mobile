@@ -17,7 +17,6 @@ class ReportController extends GetxController {
         {'value': 'thisMonth', 'label': 'This Month'},
         {'value': 'last3Months', 'label': 'Last 3 Months'},
         {'value': 'thisYear', 'label': 'This Year'},
-        {'value': 'custom', 'label': 'Custom Period'},
       ];
 
   // Mock data - in real app this would come from API

@@ -30,6 +30,8 @@ class ReportHeader extends GetView<ReportController> {
                 ],
               ),
               child: Obx(() => DropdownButton<String>(
+                    dropdownColor: AppColors.white,
+                    borderRadius: BorderRadius.circular(12.r),
                     value: controller.selectedPeriod,
                     onChanged: (String? newValue) {
                       if (newValue != null) {

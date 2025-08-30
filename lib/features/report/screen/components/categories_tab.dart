@@ -19,6 +19,8 @@ class CategoriesTab extends GetView<ReportController> {
 
         // Category List
         _buildCategoryList(),
+
+        SizedBox(height: 20.h),
       ],
     );
   }

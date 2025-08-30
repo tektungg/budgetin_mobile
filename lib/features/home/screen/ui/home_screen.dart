@@ -23,7 +23,7 @@ class HomeScreen extends GetView<HomeController> {
               pinned: false,
               floating: false,
               delegate: _HomeHeaderDelegate(
-                minHeight: 80.h,
+                minHeight: MediaQuery.of(context).size.height * 0.091,
                 maxHeight: MediaQuery.of(context).size.height * 0.22,
               ),
             ),

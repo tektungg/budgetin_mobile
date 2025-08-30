@@ -18,6 +18,8 @@ class AccountsTab extends GetView<ReportController> {
 
         // Account Details
         _buildAccountDetails(),
+
+        SizedBox(height: 20.h),
       ],
     );
   }
@@ -50,7 +52,7 @@ class AccountsTab extends GetView<ReportController> {
 
           // Simple bar chart representation
           SizedBox(
-            height: 200.h,
+            height: 300.h,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,

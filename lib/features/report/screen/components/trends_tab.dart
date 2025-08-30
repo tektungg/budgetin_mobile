@@ -18,6 +18,8 @@ class TrendsTab extends GetView<ReportController> {
 
         // Growth Metrics
         _buildGrowthMetrics(),
+
+        SizedBox(height: 20.h),
       ],
     );
   }

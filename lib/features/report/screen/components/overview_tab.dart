@@ -23,6 +23,8 @@ class OverviewTab extends GetView<ReportController> {
 
             // Income vs Expense Chart
             _buildIncomeExpenseChart(),
+
+            SizedBox(height: 20.h),
           ],
         ));
   }
@@ -259,7 +261,7 @@ class OverviewTab extends GetView<ReportController> {
 
           // Simple bar chart representation
           SizedBox(
-            height: 200.h,
+            height: 300.h,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
