@@ -10,6 +10,7 @@ class RecentTransactions extends StatelessWidget {
     this.transactions = const [
       {
         'title': 'Grocery Shopping',
+        'category': 'Food & Dining',
         'date': '23 Agu 2025',
         'amount': 'Rp 150,000',
         'source': 'Cash',
@@ -17,6 +18,7 @@ class RecentTransactions extends StatelessWidget {
       },
       {
         'title': 'Salary',
+        'category': 'Income',
         'date': '22 Agu 2025',
         'amount': 'Rp 5,000,000',
         'source': 'Bank BRI',
@@ -24,6 +26,7 @@ class RecentTransactions extends StatelessWidget {
       },
       {
         'title': 'Coffee Shop',
+        'category': 'Food & Dining',
         'date': '22 Agu 2025',
         'amount': 'Rp 35,000',
         'source': 'E-Wallet',
@@ -31,6 +34,7 @@ class RecentTransactions extends StatelessWidget {
       },
       {
         'title': 'Transfer to BNI',
+        'category': 'Transfer',
         'date': '21 Agu 2025',
         'amount': 'Rp 1,000,000',
         'source': 'Bank Mandiri',
@@ -91,6 +95,7 @@ class RecentTransactions extends StatelessWidget {
                   children: [
                     _buildTransactionItem(
                       title: transaction['title'],
+                      category: transaction['category'],
                       date: transaction['date'],
                       amount: transaction['amount'],
                       source: transaction['source'],
@@ -119,6 +124,7 @@ class RecentTransactions extends StatelessWidget {
 
   Widget _buildTransactionItem({
     required String title,
+    required String category,
     required String date,
     required String amount,
     required String source,
@@ -149,7 +155,7 @@ class RecentTransactions extends StatelessWidget {
           ),
           SizedBox(width: 12.w),
 
-          // Transaction details (2 columns: title and date+source)
+          // Transaction details (title, category + source tag)
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,11 +168,11 @@ class RecentTransactions extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 4.h),
-                // Date and source with bullet separator
+                // Category and source tag
                 Row(
                   children: [
                     Text(
-                      date,
+                      category,
                       style: AppFonts.primaryRegular12.copyWith(
                         color: AppColors.text1_600,
                       ),
@@ -200,12 +206,26 @@ class RecentTransactions extends StatelessWidget {
             ),
           ),
 
-          // Amount (right side)
-          Text(
-            amount,
-            style: AppFonts.primarySemiBold14.copyWith(
-              color: amountColor,
-            ),
+          // Amount and date (right column)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              // Amount (top)
+              Text(
+                amount,
+                style: AppFonts.primarySemiBold14.copyWith(
+                  color: amountColor,
+                ),
+              ),
+              SizedBox(height: 4.h),
+              // Date (bottom)
+              Text(
+                date,
+                style: AppFonts.primaryRegular12.copyWith(
+                  color: AppColors.text1_600,
+                ),
+              ),
+            ],
           ),
         ],
       ),
