@@ -1,5 +1,9 @@
+import 'package:budgetin/shared/styles/app_colors.dart';
+import 'package:budgetin/shared/styles/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -59,30 +63,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.forceMaterialTransparency = false,
     this.clipBehavior,
     this.systemOverlayStyle,
-  }) : assert(title == null || titleWidget == null, 
-              'Cannot provide both title and titleWidget');
+  }) : assert(title == null || titleWidget == null,
+            'Cannot provide both title and titleWidget');
 
   @override
   Widget build(BuildContext context) {
     Widget? leadingWidget;
-    
+
     if (leading != null) {
       leadingWidget = leading;
     } else if (onLeadingPressed != null || leadingIcon != null) {
       leadingWidget = IconButton(
-        icon: Icon(leadingIcon ?? Icons.arrow_back),
-        onPressed: onLeadingPressed ?? () => Navigator.of(context).pop(),
+        icon: Icon(leadingIcon ?? Icons.arrow_back_ios_new),
+        onPressed: onLeadingPressed ?? () => Get.back(),
       );
     }
 
     return AppBar(
       title: titleWidget ?? (title != null ? Text(title!) : null),
       centerTitle: centerTitle,
-      backgroundColor: backgroundColor,
-      foregroundColor: foregroundColor,
+      backgroundColor: backgroundColor ?? AppColors.primary,
+      foregroundColor: foregroundColor ?? AppColors.white,
       elevation: elevation,
       leading: leadingWidget,
-      automaticallyImplyLeading: automaticallyImplyLeading && leadingWidget == null,
+      automaticallyImplyLeading:
+          automaticallyImplyLeading && leadingWidget == null,
       actions: actions,
       leadingWidth: leadingWidth,
       bottom: bottom,
@@ -96,7 +101,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       shape: shape,
       iconTheme: iconTheme,
       actionsIconTheme: actionsIconTheme,
-      titleTextStyle: titleTextStyle,
+      titleTextStyle: titleTextStyle ??
+          AppFonts.primaryBold20.copyWith(
+            color: AppColors.white,
+          ),
       forceMaterialTransparency: forceMaterialTransparency,
       clipBehavior: clipBehavior,
       systemOverlayStyle: systemOverlayStyle,
@@ -104,7 +112,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(
-    (toolbarHeight ?? kToolbarHeight) + (bottom?.preferredSize.height ?? 0.0)
-  );
+  Size get preferredSize => Size.fromHeight((toolbarHeight ?? kToolbarHeight) +
+      (bottom?.preferredSize.height ?? 0.0));
 }

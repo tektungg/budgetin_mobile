@@ -1,47 +1,13 @@
+import 'package:budgetin/configs/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:budgetin/features/transaction/screen/components/transaction_list.dart';
+import 'package:budgetin/features/transaction/controllers/transaction_controller.dart';
 
-class RecentTransactions extends StatelessWidget {
-  final List<Map<String, dynamic>> transactions;
-
-  const RecentTransactions({
-    super.key,
-    this.transactions = const [
-      {
-        'title': 'Grocery Shopping',
-        'category': 'Food & Dining',
-        'date': '23 Agu 2025',
-        'amount': 'Rp 150,000',
-        'source': 'Cash',
-        'isIncome': false,
-      },
-      {
-        'title': 'Salary',
-        'category': 'Income',
-        'date': '22 Agu 2025',
-        'amount': 'Rp 5,000,000',
-        'source': 'Bank BRI',
-        'isIncome': true,
-      },
-      {
-        'title': 'Coffee Shop',
-        'category': 'Food & Dining',
-        'date': '22 Agu 2025',
-        'amount': 'Rp 35,000',
-        'source': 'E-Wallet',
-        'isIncome': false,
-      },
-      {
-        'title': 'Transfer to BNI',
-        'category': 'Transfer',
-        'date': '21 Agu 2025',
-        'amount': 'Rp 1,000,000',
-        'source': 'Bank Mandiri',
-        'isIncome': false,
-      },
-    ],
-  });
+class RecentTransactions extends GetView<TransactionController> {
+  const RecentTransactions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +28,7 @@ class RecentTransactions extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   // Navigate to all transactions
+                  Get.toNamed(Routes.transactionRoute);
                 },
                 child: Text(
                   'See All',
@@ -73,162 +40,17 @@ class RecentTransactions extends StatelessWidget {
             ],
           ),
         ),
-        // Container with transactions only
-        Container(
-          width: double.infinity,
-          margin: EdgeInsets.symmetric(horizontal: 24.w),
-          padding: EdgeInsets.all(20.w),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: AppColors.border),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Transactions List with Dividers
-              ...transactions.asMap().entries.map((entry) {
-                int index = entry.key;
-                Map<String, dynamic> transaction = entry.value;
-
-                return Column(
-                  children: [
-                    _buildTransactionItem(
-                      title: transaction['title'],
-                      category: transaction['category'],
-                      date: transaction['date'],
-                      amount: transaction['amount'],
-                      source: transaction['source'],
-                      isIncome: transaction['isIncome'],
-                    ),
-                    if (index <
-                        transactions.length -
-                            1) // Add divider except for last item
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12.h),
-                        child: Divider(
-                          color: AppColors.border,
-                          thickness: 1,
-                          height: 1,
-                        ),
-                      ),
-                  ],
-                );
-              }),
-            ],
-          ),
-        ),
+        SizedBox(height: 16.h),
+        // Transaction List (Recent only - 4 items)
+        Obx(() => TransactionList(
+              transactions: controller.recentTransactions,
+              showDividers: true,
+              onTransactionTap: () {
+                // Navigate to transaction detail
+                // Get.toNamed('/transaction');
+              },
+            )),
       ],
-    );
-  }
-
-  Widget _buildTransactionItem({
-    required String title,
-    required String category,
-    required String date,
-    required String amount,
-    required String source,
-    required bool isIncome,
-  }) {
-    final Color amountColor = isIncome ? AppColors.success : AppColors.error;
-    final IconData icon = isIncome ? Icons.trending_up : Icons.trending_down;
-
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.h),
-      child: Row(
-        children: [
-          // Icon
-          Container(
-            width: 40.w,
-            height: 40.h,
-            decoration: BoxDecoration(
-              color: isIncome
-                  ? AppColors.success.withValues(alpha: 0.1)
-                  : AppColors.error.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Icon(
-              icon,
-              color: amountColor,
-              size: 20.w,
-            ),
-          ),
-          SizedBox(width: 12.w),
-
-          // Transaction details (title, category + source tag)
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Title
-                Text(
-                  title,
-                  style: AppFonts.primaryMedium14.copyWith(
-                    color: AppColors.text1_1000,
-                  ),
-                ),
-                SizedBox(height: 4.h),
-                // Category and source tag
-                Row(
-                  children: [
-                    Text(
-                      category,
-                      style: AppFonts.primaryRegular12.copyWith(
-                        color: AppColors.text1_600,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 6.w),
-                      width: 4.w,
-                      height: 4.h,
-                      decoration: BoxDecoration(
-                        color: AppColors.text1_600,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      child: Text(
-                        source,
-                        style: AppFonts.primaryMedium10.copyWith(
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-          // Amount and date (right column)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              // Amount (top)
-              Text(
-                amount,
-                style: AppFonts.primarySemiBold14.copyWith(
-                  color: amountColor,
-                ),
-              ),
-              SizedBox(height: 4.h),
-              // Date (bottom)
-              Text(
-                date,
-                style: AppFonts.primaryRegular12.copyWith(
-                  color: AppColors.text1_600,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

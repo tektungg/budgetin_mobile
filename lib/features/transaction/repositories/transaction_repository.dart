@@ -1,0 +1,4 @@
+class TransactionRepository {
+  TransactionRepository._();
+}
+    

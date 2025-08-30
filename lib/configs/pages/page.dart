@@ -1,4 +1,6 @@
 import 'package:budgetin/features/home/bindings/home_binding.dart';
+import 'package:budgetin/features/transaction/bindings/transaction_binding.dart';
+import 'package:budgetin/features/transaction/screen/ui/transaction_screen.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/configs/routes/route.dart';
 import 'package:budgetin/features/no_connection/view/ui/no_connection_screen.dart';
@@ -49,6 +51,11 @@ abstract class Pages {
       name: Routes.forgotPasswordRoute,
       page: () => const ForgotPasswordScreen(),
       binding: ForgotPasswordBinding(),
+    ),
+  GetPage(
+      name: Routes.transactionRoute,
+      page: () => const TransactionScreen(),
+      binding: TransactionBinding(),
     ),
   ];
 }
