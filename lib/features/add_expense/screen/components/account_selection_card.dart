@@ -128,13 +128,13 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
                   padding: EdgeInsets.all(12.w),
                   decoration: BoxDecoration(
                     color: isInsufficientBalance
-                        ? AppColors.error.withOpacity(0.1)
-                        : AppColors.info.withOpacity(0.1),
+                        ? AppColors.error.withValues(alpha: 0.1)
+                        : AppColors.info.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8.r),
                     border: Border.all(
                       color: isInsufficientBalance
-                          ? AppColors.error.withOpacity(0.3)
-                          : AppColors.info.withOpacity(0.3),
+                          ? AppColors.error.withValues(alpha: 0.3)
+                          : AppColors.info.withValues(alpha: 0.3),
                     ),
                   ),
                   child: Column(
@@ -206,7 +206,7 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
                             decoration: BoxDecoration(
                               border: Border(
                                 top: BorderSide(
-                                  color: AppColors.info.withOpacity(0.3),
+                                  color: AppColors.info.withValues(alpha: 0.3),
                                   width: 1,
                                 ),
                               ),

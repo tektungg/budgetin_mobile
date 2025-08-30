@@ -69,7 +69,7 @@ class CategorySelectionCard extends GetView<AddExpenseController> {
                     padding: EdgeInsets.all(12.w),
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? AppColors.primary.withOpacity(0.1)
+                          ? AppColors.primary.withValues(alpha: 0.1)
                           : AppColors.white,
                       borderRadius: BorderRadius.circular(12.r),
                       border: Border.all(

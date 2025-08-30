@@ -125,10 +125,10 @@ class IncomeAccountSelectionCard extends GetView<AddIncomeController> {
                   width: double.infinity,
                   padding: EdgeInsets.all(12.w),
                   decoration: BoxDecoration(
-                    color: AppColors.success.withOpacity(0.1),
+                    color: AppColors.success.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8.r),
                     border: Border.all(
-                      color: AppColors.success.withOpacity(0.3),
+                      color: AppColors.success.withValues(alpha: 0.3),
                     ),
                   ),
                   child: Column(
@@ -171,7 +171,8 @@ class IncomeAccountSelectionCard extends GetView<AddIncomeController> {
                             decoration: BoxDecoration(
                               border: Border(
                                 top: BorderSide(
-                                  color: AppColors.success.withOpacity(0.3),
+                                  color:
+                                      AppColors.success.withValues(alpha: 0.3),
                                   width: 1,
                                 ),
                               ),
