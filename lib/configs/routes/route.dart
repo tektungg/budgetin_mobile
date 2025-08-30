@@ -16,4 +16,5 @@ static const String accountManagementRoute = '/account_management';
 static const String settingsRoute = '/settings';
 static const String helpRoute = '/help';
 static const String aboutRoute = '/about';
+static const String addExpenseRoute = '/add_expense';
 }

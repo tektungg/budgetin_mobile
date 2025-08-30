@@ -1,0 +1,4 @@
+class AddExpenseRepository {
+  AddExpenseRepository._();
+}
+    

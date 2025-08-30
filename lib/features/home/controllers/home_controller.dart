@@ -1,5 +1,6 @@
 // ignore_for_file: strict_top_level_inference
 
+import 'package:budgetin/configs/routes/route.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/auth/controllers/auth_controller.dart';
 
@@ -39,8 +40,10 @@ class HomeController extends GetxController {
   }
 
   void navigateToAddIncome() {
+    Get.toNamed('/add-income');
   }
 
   void navigateToAddExpense() {
+    Get.toNamed(Routes.addExpenseRoute);
   }
 }
