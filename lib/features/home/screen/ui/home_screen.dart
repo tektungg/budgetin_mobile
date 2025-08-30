@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/home/controllers/home_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:budgetin/features/home/screen/components/index.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({super.key});
@@ -10,142 +11,38 @@ class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Budgetin Home'),
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.white,
-        actions: [
-          IconButton(
-            onPressed: controller.logout,
-            icon: const Icon(Icons.logout),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(24.w),
+      backgroundColor: AppColors.white,
+      body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(() {
-              final user = controller.currentUser;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Welcome back!',
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  if (user != null) ...[
-                    Text(
-                      'Email: ${user.email}',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: AppColors.text1_600,
-                      ),
-                    ),
-                    if (user.userMetadata?['full_name'] != null) ...[
-                      SizedBox(height: 4.h),
-                      Text(
-                        'Name: ${user.userMetadata!['full_name']}',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: AppColors.text1_600,
-                        ),
-                      ),
-                    ],
+            // Header with total balance
+            const HomeHeader(),
+
+            // Main scrollable content
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    // Spacing for header
+                    SizedBox(height: 20.h),
+
+                    // Account Balance
+                    const AccountBalance(),
+
+                    SizedBox(height: 24.h),
+
+                    // Monthly Income/Expense
+                    const MonthlySummary(),
+
+                    SizedBox(height: 24.h),
+
+                    // Recent Transactions
+                    const RecentTransactions(),
+
+                    SizedBox(height: 24.h),
                   ],
-                ],
-              );
-            }),
-
-            SizedBox(height: 40.h),
-
-            // Quick Actions
-            Text(
-              'Quick Actions',
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-
-            SizedBox(height: 16.h),
-
-            GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              crossAxisSpacing: 16.w,
-              mainAxisSpacing: 16.h,
-              childAspectRatio: 1.5,
-              children: [
-                _buildActionCard(
-                  'Add Income',
-                  Icons.trending_up,
-                  AppColors.success,
-                  controller.addIncome,
                 ),
-                _buildActionCard(
-                  'Add Expense',
-                  Icons.trending_down,
-                  AppColors.error,
-                  controller.addExpense,
-                ),
-                _buildActionCard(
-                  'View Reports',
-                  Icons.bar_chart,
-                  AppColors.primary,
-                  controller.viewReports,
-                ),
-                _buildActionCard(
-                  'Settings',
-                  Icons.settings,
-                  AppColors.text1_500,
-                  controller.openSettings,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildActionCard(
-    String title,
-    IconData icon,
-    Color color,
-    VoidCallback onTap,
-  ) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(
-            color: color.withValues(alpha: 0.3),
-            width: 1,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 32.w,
-              color: color,
-            ),
-            SizedBox(height: 8.h),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                color: color,
               ),
             ),
           ],
