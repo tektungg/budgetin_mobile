@@ -83,7 +83,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios_new,
               color: AppColors.white,
               size: 20.w,
             ),

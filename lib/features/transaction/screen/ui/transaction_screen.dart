@@ -3,7 +3,7 @@ import 'package:budgetin/shared/components/custom_app_bar.dart';
 import 'package:budgetin/shared/styles/styles.dart';
 import 'package:budgetin/features/transaction/screen/components/index.dart';
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class TransactionScreen extends GetView<TransactionController> {
   const TransactionScreen({super.key});
@@ -14,7 +14,7 @@ class TransactionScreen extends GetView<TransactionController> {
       backgroundColor: AppColors.white,
       appBar: CustomAppBar(
         title: 'All Transactions',
-        automaticallyImplyLeading: true,
+        onLeadingPressed: () => Get.back(),
       ),
       body: SafeArea(
         child: Column(

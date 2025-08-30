@@ -20,6 +20,7 @@ class AboutScreen extends GetView<AboutController> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "About Budgetin",
+        onLeadingPressed: () => Get.back(),
       ),
       backgroundColor: AppColors.background,
       body: SingleChildScrollView(

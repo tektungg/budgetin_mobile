@@ -20,7 +20,7 @@ class SettingsScreen extends GetView<SettingsController> {
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
         title: 'Settings',
-        automaticallyImplyLeading: true,
+        onLeadingPressed: () => Get.back(),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.w),
