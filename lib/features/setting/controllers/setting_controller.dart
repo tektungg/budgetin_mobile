@@ -97,7 +97,7 @@ class SettingController extends GetxController {
 
   void navigateToEditProfile() {
     // Navigate to edit profile screen
-    Get.snackbar('Info', 'Edit Profile feature coming soon!');
+    Get.toNamed(Routes.editProfileRoute);
   }
 
   void navigateToAccountManagement() {

@@ -1,4 +1,3 @@
-import 'package:budgetin/configs/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -79,9 +78,7 @@ class HomeHeader extends GetView<HomeController> {
             top: MediaQuery.of(context).size.height * 0.09,
             left: 24.w,
             right: 24.w,
-            child: GestureDetector(
-              onDoubleTap: () => Get.toNamed(Routes.reportRoute),
-              child: Container(
+            child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(20.w),
                 decoration: BoxDecoration(
@@ -114,7 +111,6 @@ class HomeHeader extends GetView<HomeController> {
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
