@@ -37,4 +37,10 @@ class HomeController extends GetxController {
   void logout() {
     _authController.signOut();
   }
+
+  void navigateToAddIncome() {
+  }
+
+  void navigateToAddExpense() {
+  }
 }
