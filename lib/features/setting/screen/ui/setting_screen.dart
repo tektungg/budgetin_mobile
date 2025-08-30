@@ -1,3 +1,6 @@
+import 'package:budgetin/configs/routes/route.dart';
+import 'package:budgetin/shared/components/custom_app_bar.dart';
+import 'package:budgetin/shared/components/custom_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,6 +15,11 @@ class SettingScreen extends GetView<SettingController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: CustomAppBar(
+        title: 'Setting',
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -41,6 +49,10 @@ class SettingScreen extends GetView<SettingController> {
             ),
           ],
         ),
+      ),
+      // Bottom Navigation
+      bottomNavigationBar: CustomBottomNavBar(
+        currentRoute: Routes.settingRoute,
       ),
     );
   }

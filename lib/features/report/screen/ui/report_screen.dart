@@ -5,6 +5,8 @@ import 'package:budgetin/features/report/controllers/report_controller.dart';
 import 'package:budgetin/features/report/screen/components/index.dart';
 import 'package:budgetin/shared/styles/styles.dart';
 import 'package:budgetin/shared/components/custom_app_bar.dart';
+import 'package:budgetin/shared/components/custom_bottom_nav_bar.dart';
+import 'package:budgetin/configs/routes/route.dart';
 
 class ReportScreen extends GetView<ReportController> {
   const ReportScreen({super.key});
@@ -55,6 +57,11 @@ class ReportScreen extends GetView<ReportController> {
             ),
           ),
         ],
+      ),
+
+      // Bottom Navigation
+      bottomNavigationBar: CustomBottomNavBar(
+        currentRoute: Routes.reportRoute,
       ),
     );
   }
