@@ -9,4 +9,5 @@ abstract class Routes {
   static const String homeRoute = '/home';
 static const String forgotPasswordRoute = '/forgot_password';
 static const String transactionRoute = '/transaction';
+static const String settingRoute = '/setting';
 }

@@ -1,4 +1,6 @@
 import 'package:budgetin/features/home/bindings/home_binding.dart';
+import 'package:budgetin/features/setting/bindings/setting_binding.dart';
+import 'package:budgetin/features/setting/screen/ui/setting_screen.dart';
 import 'package:budgetin/features/transaction/bindings/transaction_binding.dart';
 import 'package:budgetin/features/transaction/screen/ui/transaction_screen.dart';
 import 'package:get/get.dart';
@@ -56,6 +58,11 @@ abstract class Pages {
       name: Routes.transactionRoute,
       page: () => const TransactionScreen(),
       binding: TransactionBinding(),
+    ),
+  GetPage(
+      name: Routes.settingRoute,
+      page: () => const SettingScreen(),
+      binding: SettingBinding(),
     ),
   ];
 }
