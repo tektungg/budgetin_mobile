@@ -35,7 +35,6 @@ class SettingsController extends GetxController {
   List<Language> get languages => const [
         Language(value: 'id', label: 'Bahasa Indonesia', flag: '🇮🇩'),
         Language(value: 'en', label: 'English', flag: '🇺🇸'),
-        Language(value: 'ms', label: 'Bahasa Melayu', flag: '🇲🇾'),
       ];
 
   // Language methods

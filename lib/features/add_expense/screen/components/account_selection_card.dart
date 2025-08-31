@@ -55,6 +55,8 @@ class AccountSelectionCard extends GetView<AddExpenseController> {
             ),
             child: Obx(() {
               return DropdownButton<String>(
+                dropdownColor: AppColors.white,
+                borderRadius: BorderRadius.circular(12.r),
                 value: controller.formData.account.isNotEmpty
                     ? controller.formData.account
                     : null,

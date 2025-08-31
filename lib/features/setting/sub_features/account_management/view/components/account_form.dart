@@ -223,6 +223,8 @@ class AccountForm extends GetView<AccountManagementController> {
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: DropdownButton<String>(
+              dropdownColor: AppColors.white,
+              borderRadius: BorderRadius.circular(12.r),
               value: controller.selectedType.isEmpty
                   ? null
                   : controller.selectedType,

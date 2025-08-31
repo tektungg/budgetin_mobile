@@ -81,6 +81,8 @@ class LanguageSettingsCard extends GetView<SettingsController> {
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: DropdownButton<String>(
+                dropdownColor: AppColors.white,
+                borderRadius: BorderRadius.circular(12.r),
                 value: controller.selectedLanguage,
                 isExpanded: true,
                 underline: Container(),
