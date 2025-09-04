@@ -25,15 +25,18 @@ class RecentTransactions extends GetView<TransactionController> {
                   color: AppColors.text1_1000,
                 ),
               ),
-              TextButton(
-                onPressed: () {
+              GestureDetector(
+                onTap: () {
                   // Navigate to all transactions
                   Get.toNamed(Routes.transactionRoute);
                 },
-                child: Text(
-                  'See All',
-                  style: AppFonts.primaryMedium14.copyWith(
-                    color: AppColors.primary,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  child: Text(
+                    'See All',
+                    style: AppFonts.primaryMedium14.copyWith(
+                      color: AppColors.primary,
+                    ),
                   ),
                 ),
               ),

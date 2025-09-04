@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 import 'package:budgetin/features/setting/sub_features/settings/models/settings_model.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:budgetin/shared/controllers/dialog_controller.dart';
 
 class SettingsController extends GetxController {
   static SettingsController get to => Get.find();
@@ -167,33 +167,22 @@ class SettingsController extends GetxController {
   }
 
   void handleDeleteAllData() {
-    Get.dialog(
-      AlertDialog(
-        title: const Text('Delete All Data'),
-        content: const Text(
+    DialogController.to.showConfirmationDialog(
+      title: 'Delete All Data',
+      description:
           'Are you sure you want to delete all data? This action cannot be undone and will remove all your transactions, accounts, and settings.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.back();
-              Get.snackbar(
-                'Error',
-                'Delete all data feature requires additional confirmation',
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: AppColors.error,
-                colorText: AppColors.white,
-              );
-            },
-            style: TextButton.styleFrom(foregroundColor: AppColors.error),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      variant: DialogVariant.destructive,
+      onConfirm: () {
+        Get.snackbar(
+          'Error',
+          'Delete all data feature requires additional confirmation',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColors.error,
+          colorText: AppColors.white,
+        );
+      },
     );
   }
 

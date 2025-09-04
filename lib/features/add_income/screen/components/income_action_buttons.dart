@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/add_income/controllers/add_income_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:budgetin/shared/widgets/custom_button.dart';
 
 class IncomeActionButtons extends GetView<AddIncomeController> {
   const IncomeActionButtons({super.key});
@@ -15,21 +16,15 @@ class IncomeActionButtons extends GetView<AddIncomeController> {
         children: [
           // Cancel Button
           Expanded(
-            child: OutlinedButton(
+            child: CustomButton(
+              text: 'Batal',
               onPressed: controller.cancel,
-              style: OutlinedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 16.h),
-                side: BorderSide(color: AppColors.border),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
-              child: Text(
-                'Batal',
-                style: AppFonts.primarySemiBold16.copyWith(
-                  color: AppColors.text1_600,
-                ),
-              ),
+              backgroundColor: AppColors.white,
+              textColor: AppColors.text1_600,
+              borderColor: AppColors.border,
+              borderWidth: 1,
+              borderRadius: 8.r,
+              height: 52.h,
             ),
           ),
 
@@ -39,56 +34,21 @@ class IncomeActionButtons extends GetView<AddIncomeController> {
           Expanded(
             flex: 2,
             child: Obx(() {
-              return ElevatedButton(
+              return CustomButton(
+                text:
+                    controller.isLoading ? 'Menyimpan...' : 'Simpan Pemasukan',
                 onPressed: controller.isLoading ? null : controller.saveIncome,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: AppColors.white,
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  elevation: 0,
-                ),
-                child: controller.isLoading
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 16.w,
-                            height: 16.w,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.white,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 8.w),
-                          Text(
-                            'Menyimpan...',
-                            style: AppFonts.primarySemiBold16.copyWith(
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.save,
-                            size: 18.w,
-                            color: AppColors.white,
-                          ),
-                          SizedBox(width: 8.w),
-                          Text(
-                            'Simpan Pemasukan',
-                            style: AppFonts.primarySemiBold16.copyWith(
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ],
+                isLoading: controller.isLoading,
+                backgroundColor: AppColors.primary,
+                textColor: AppColors.white,
+                borderRadius: 8.r,
+                height: 52.h,
+                icon: controller.isLoading
+                    ? null
+                    : Icon(
+                        Icons.save,
+                        size: 18.w,
+                        color: AppColors.white,
                       ),
               );
             }),

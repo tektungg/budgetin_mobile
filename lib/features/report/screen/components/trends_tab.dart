@@ -151,7 +151,7 @@ class TrendsTab extends GetView<ReportController> {
                     ),
                     belowBarData: BarAreaData(
                       show: true,
-                      color: AppColors.accent.withOpacity(0.1),
+                      color: AppColors.accent.withValues(alpha: 0.1),
                     ),
                   ),
                   // Expense line
@@ -174,7 +174,7 @@ class TrendsTab extends GetView<ReportController> {
                     ),
                     belowBarData: BarAreaData(
                       show: true,
-                      color: AppColors.error.withOpacity(0.1),
+                      color: AppColors.error.withValues(alpha: 0.1),
                     ),
                   ),
                 ],

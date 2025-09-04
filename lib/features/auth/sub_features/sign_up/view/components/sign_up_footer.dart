@@ -9,22 +9,25 @@ class SignUpFooter extends GetView<SignUpController> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: TextButton(
-        onPressed: controller.goToSignIn,
-        child: RichText(
-          text: TextSpan(
-            style: AppFonts.primaryRegular16.copyWith(
-              color: AppColors.text1_600,
-            ),
-            children: [
-              const TextSpan(text: 'Already have an account? '),
-              TextSpan(
-                text: 'Sign In',
-                style: AppFonts.primarySemiBold16.copyWith(
-                  color: AppColors.primary,
-                ),
+      child: GestureDetector(
+        onTap: controller.goToSignIn,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          child: RichText(
+            text: TextSpan(
+              style: AppFonts.primaryRegular16.copyWith(
+                color: AppColors.text1_600,
               ),
-            ],
+              children: [
+                const TextSpan(text: 'Already have an account? '),
+                TextSpan(
+                  text: 'Sign In',
+                  style: AppFonts.primarySemiBold16.copyWith(
+                    color: AppColors.primary,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

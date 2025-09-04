@@ -26,12 +26,15 @@ class SignInOptions extends GetView<SignInController> {
                 ),
               ],
             )),
-        TextButton(
-          onPressed: controller.goToForgotPassword,
-          child: Text(
-            'Forgot Password?',
-            style: AppFonts.primaryMedium14.copyWith(
-              color: AppColors.primary,
+        GestureDetector(
+          onTap: controller.goToForgotPassword,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: Text(
+              'Forgot Password?',
+              style: AppFonts.primaryMedium14.copyWith(
+                color: AppColors.primary,
+              ),
             ),
           ),
         ),

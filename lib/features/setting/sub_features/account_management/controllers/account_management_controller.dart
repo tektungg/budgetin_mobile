@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:budgetin/features/setting/sub_features/account_management/models/account_model.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:budgetin/shared/controllers/dialog_controller.dart';
 
 class AccountManagementController extends GetxController {
   static AccountManagementController get to => Get.find();
@@ -221,34 +222,24 @@ class AccountManagementController extends GetxController {
   }
 
   void handleDeleteAccount(String accountId) {
-    Get.dialog(
-      AlertDialog(
-        title: const Text('Delete Account'),
-        content: const Text(
-            'Are you sure you want to delete this account? This action cannot be undone.'),
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              _accounts.removeWhere((acc) => acc.id == accountId);
-              Get.back();
+    DialogController.to.showConfirmationDialog(
+      title: 'Delete Account',
+      description:
+          'Are you sure you want to delete this account? This action cannot be undone.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      variant: DialogVariant.destructive,
+      onConfirm: () {
+        _accounts.removeWhere((acc) => acc.id == accountId);
 
-              Get.snackbar(
-                'Success',
-                'Account deleted successfully!',
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: AppColors.success,
-                colorText: AppColors.white,
-              );
-            },
-            style: TextButton.styleFrom(foregroundColor: AppColors.error),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
+        Get.snackbar(
+          'Success',
+          'Account deleted successfully!',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColors.success,
+          colorText: AppColors.white,
+        );
+      },
     );
   }
 

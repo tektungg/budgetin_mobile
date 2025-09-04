@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/setting/sub_features/about/controllers/about_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:budgetin/shared/widgets/custom_button.dart';
 
 class AppInfoCard extends GetView<AboutController> {
   const AppInfoCard({super.key});
@@ -95,49 +96,37 @@ class AppInfoCard extends GetView<AboutController> {
           Row(
             children: [
               Expanded(
-                child: OutlinedButton.icon(
+                child: CustomButton(
+                  text: 'Rate App',
                   onPressed: () => controller.rateApp(),
+                  backgroundColor: AppColors.white,
+                  textColor: AppColors.primary,
+                  borderColor: AppColors.primary,
+                  borderWidth: 1,
+                  borderRadius: 8.r,
+                  height: 40.h,
                   icon: Icon(
                     Icons.star,
                     size: 16.w,
                     color: AppColors.primary,
                   ),
-                  label: Text(
-                    'Rate App',
-                    style: AppFonts.primaryMedium14.copyWith(
-                      color: AppColors.primary,
-                    ),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: AppColors.primary),
-                    padding: EdgeInsets.symmetric(vertical: 12.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                  ),
                 ),
               ),
               SizedBox(width: 12.w),
               Expanded(
-                child: OutlinedButton.icon(
+                child: CustomButton(
+                  text: 'Website',
                   onPressed: () => controller.openWebsite(),
+                  backgroundColor: AppColors.white,
+                  textColor: AppColors.primary,
+                  borderColor: AppColors.primary,
+                  borderWidth: 1,
+                  borderRadius: 8.r,
+                  height: 40.h,
                   icon: Icon(
                     Icons.open_in_new,
                     size: 16.w,
                     color: AppColors.primary,
-                  ),
-                  label: Text(
-                    'Website',
-                    style: AppFonts.primaryMedium14.copyWith(
-                      color: AppColors.primary,
-                    ),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: AppColors.primary),
-                    padding: EdgeInsets.symmetric(vertical: 12.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
                   ),
                 ),
               ),

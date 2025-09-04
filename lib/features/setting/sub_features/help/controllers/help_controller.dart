@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:budgetin/features/setting/sub_features/help/models/help_model.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:budgetin/shared/controllers/dialog_controller.dart';
 
 class HelpController extends GetxController {
   static HelpController get to => Get.find();
@@ -191,18 +192,14 @@ class HelpController extends GetxController {
   }
 
   void _showChatModal() {
-    Get.dialog(
-      AlertDialog(
-        title: const Text('Live Chat'),
-        content: const Text(
-            'Live chat feature is coming soon! For now, please contact us via email or phone.'),
-        actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
+    DialogController.to.showConfirmationDialog(
+      title: 'Live Chat',
+      description:
+          'Live chat feature is coming soon! For now, please contact us via email or phone.',
+      confirmText: 'OK',
+      cancelText: '',
+      variant: DialogVariant.info,
+      onConfirm: () {},
     );
   }
 

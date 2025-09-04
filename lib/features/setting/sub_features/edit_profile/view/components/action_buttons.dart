@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/setting/sub_features/edit_profile/controllers/edit_profile_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:budgetin/shared/widgets/custom_button.dart';
 
 class ActionButtons extends GetView<EditProfileController> {
   const ActionButtons({super.key});
@@ -13,26 +14,15 @@ class ActionButtons extends GetView<EditProfileController> {
       children: [
         // Cancel Button
         Expanded(
-          child: GestureDetector(
-            onTap: controller.navigateBack,
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 14.h),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColors.border,
-                  width: 1.w,
-                ),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Center(
-                child: Text(
-                  'Cancel',
-                  style: AppFonts.primaryMedium14.copyWith(
-                    color: AppColors.text1_1000,
-                  ),
-                ),
-              ),
-            ),
+          child: CustomButton(
+            text: 'Cancel',
+            onPressed: controller.navigateBack,
+            backgroundColor: AppColors.white,
+            textColor: AppColors.text1_1000,
+            borderColor: AppColors.border,
+            borderWidth: 1,
+            borderRadius: 8.r,
+            height: 46.h,
           ),
         ),
 
@@ -41,47 +31,22 @@ class ActionButtons extends GetView<EditProfileController> {
         // Save Button
         Expanded(
           child: Obx(() {
-            return GestureDetector(
-              onTap: controller.isLoading ? null : controller.handleSaveProfile,
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 14.h),
-                decoration: BoxDecoration(
-                  color: controller.isLoading
-                      ? AppColors.primary.withValues(alpha: 0.6)
-                      : AppColors.primary,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Center(
-                  child: controller.isLoading
-                      ? SizedBox(
-                          width: 20.w,
-                          height: 20.w,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.w,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              AppColors.white,
-                            ),
-                          ),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.save,
-                              size: 16.w,
-                              color: AppColors.white,
-                            ),
-                            SizedBox(width: 8.w),
-                            Text(
-                              'Save',
-                              style: AppFonts.primaryMedium14.copyWith(
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
-              ),
+            return CustomButton(
+              text: 'Save',
+              onPressed:
+                  controller.isLoading ? null : controller.handleSaveProfile,
+              isLoading: controller.isLoading,
+              backgroundColor: AppColors.primary,
+              textColor: AppColors.white,
+              borderRadius: 8.r,
+              height: 46.h,
+              icon: controller.isLoading
+                  ? null
+                  : Icon(
+                      Icons.save,
+                      size: 16.w,
+                      color: AppColors.white,
+                    ),
             );
           }),
         ),

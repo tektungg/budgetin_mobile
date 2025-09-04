@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/shared/styles/styles.dart';
 import 'package:budgetin/shared/controllers/dialog_controller.dart';
+import 'package:budgetin/shared/widgets/custom_button.dart';
 
 class ConfirmationDialogWidget extends StatelessWidget {
   final String title;
@@ -79,29 +80,20 @@ class ConfirmationDialogWidget extends StatelessWidget {
                   children: [
                     // Cancel Button
                     Expanded(
-                      child: TextButton(
+                      child: CustomButton(
+                        text: cancelText,
                         onPressed: controller.isLoading
                             ? null
                             : () {
                                 Get.back(result: false);
                                 onCancel?.call();
                               },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 12.h),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                            side: BorderSide(
-                              color: AppColors.border,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        child: Text(
-                          cancelText,
-                          style: AppFonts.primaryMedium14.copyWith(
-                            color: AppColors.text1_600,
-                          ),
-                        ),
+                        backgroundColor: AppColors.white,
+                        textColor: AppColors.text1_600,
+                        borderColor: AppColors.border,
+                        borderWidth: 1,
+                        borderRadius: 8.r,
+                        height: 44.h,
                       ),
                     ),
 
@@ -109,7 +101,8 @@ class ConfirmationDialogWidget extends StatelessWidget {
 
                     // Confirm Button
                     Expanded(
-                      child: ElevatedButton(
+                      child: CustomButton(
+                        text: confirmText,
                         onPressed: controller.isLoading
                             ? null
                             : () async {
@@ -120,31 +113,11 @@ class ConfirmationDialogWidget extends StatelessWidget {
                                 }
                                 Get.back(result: true);
                               },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: _getConfirmButtonColor(),
-                          foregroundColor: AppColors.white,
-                          padding: EdgeInsets.symmetric(vertical: 12.h),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: controller.isLoading
-                            ? SizedBox(
-                                width: 20.w,
-                                height: 20.w,
-                                child: const CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white),
-                                ),
-                              )
-                            : Text(
-                                confirmText,
-                                style: AppFonts.primaryMedium14.copyWith(
-                                  color: AppColors.white,
-                                ),
-                              ),
+                        isLoading: controller.isLoading,
+                        backgroundColor: _getConfirmButtonColor(),
+                        textColor: AppColors.white,
+                        borderRadius: 8.r,
+                        height: 44.h,
                       ),
                     ),
                   ],
