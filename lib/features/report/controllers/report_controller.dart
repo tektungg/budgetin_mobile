@@ -19,76 +19,167 @@ class ReportController extends GetxController {
         {'value': 'thisYear', 'label': 'This Year'},
       ];
 
-  // Mock data - in real app this would come from API
-  final RxList<Map<String, dynamic>> _monthlyData = <Map<String, dynamic>>[
-    {'month': 'Jan', 'income': 2500000, 'expense': 1800000},
-    {'month': 'Feb', 'income': 3200000, 'expense': 2100000},
-    {'month': 'Mar', 'income': 2800000, 'expense': 1950000},
-    {'month': 'Apr', 'income': 3500000, 'expense': 2300000},
-    {'month': 'May', 'income': 3100000, 'expense': 2150000},
-    {'month': 'Jun', 'income': 3800000, 'expense': 2500000},
-  ].obs;
+  // Mock data for different periods
+  final Map<String, List<Map<String, dynamic>>> _periodData = {
+    'thisWeek': [
+      {'period': 'Mon', 'income': 300000, 'expense': 250000},
+      {'period': 'Tue', 'income': 150000, 'expense': 200000},
+      {'period': 'Wed', 'income': 200000, 'expense': 180000},
+      {'period': 'Thu', 'income': 350000, 'expense': 300000},
+      {'period': 'Fri', 'income': 400000, 'expense': 350000},
+      {'period': 'Sat', 'income': 250000, 'expense': 220000},
+      {'period': 'Sun', 'income': 180000, 'expense': 150000},
+    ],
+    'thisMonth': [
+      {'period': 'Week 1', 'income': 800000, 'expense': 650000},
+      {'period': 'Week 2', 'income': 950000, 'expense': 720000},
+      {'period': 'Week 3', 'income': 750000, 'expense': 580000},
+      {'period': 'Week 4', 'income': 1100000, 'expense': 850000},
+    ],
+    'last3Months': [
+      {'period': 'Month 1', 'income': 3200000, 'expense': 2100000},
+      {'period': 'Month 2', 'income': 2800000, 'expense': 1950000},
+      {'period': 'Month 3', 'income': 3500000, 'expense': 2300000},
+    ],
+    'thisYear': [
+      {'period': 'Q1', 'income': 8500000, 'expense': 6050000},
+      {'period': 'Q2', 'income': 9400000, 'expense': 6950000},
+      {'period': 'Q3', 'income': 8200000, 'expense': 6200000},
+      {'period': 'Q4', 'income': 7800000, 'expense': 6100000},
+    ],
+  };
 
-  List<Map<String, dynamic>> get monthlyData => _monthlyData;
+  final Map<String, List<Map<String, dynamic>>> _categoryDataByPeriod = {
+    'thisWeek': [
+      {'name': 'Food', 'value': 350000, 'color': 0xFFFF8042},
+      {'name': 'Transportation', 'value': 200000, 'color': 0xFF00C49F},
+      {'name': 'Shopping', 'value': 150000, 'color': 0xFFFFBB28},
+      {'name': 'Entertainment', 'value': 100000, 'color': 0xFFFF6B9D},
+      {'name': 'Bills', 'value': 250000, 'color': 0xFF8884D8},
+      {'name': 'Others', 'value': 80000, 'color': 0xFF82CA9D},
+    ],
+    'thisMonth': [
+      {'name': 'Food', 'value': 1200000, 'color': 0xFFFF8042},
+      {'name': 'Transportation', 'value': 800000, 'color': 0xFF00C49F},
+      {'name': 'Shopping', 'value': 600000, 'color': 0xFFFFBB28},
+      {'name': 'Entertainment', 'value': 400000, 'color': 0xFFFF6B9D},
+      {'name': 'Bills', 'value': 900000, 'color': 0xFF8884D8},
+      {'name': 'Others', 'value': 300000, 'color': 0xFF82CA9D},
+    ],
+    'last3Months': [
+      {'name': 'Food', 'value': 3600000, 'color': 0xFFFF8042},
+      {'name': 'Transportation', 'value': 2400000, 'color': 0xFF00C49F},
+      {'name': 'Shopping', 'value': 1800000, 'color': 0xFFFFBB28},
+      {'name': 'Entertainment', 'value': 1200000, 'color': 0xFFFF6B9D},
+      {'name': 'Bills', 'value': 2700000, 'color': 0xFF8884D8},
+      {'name': 'Others', 'value': 900000, 'color': 0xFF82CA9D},
+    ],
+    'thisYear': [
+      {'name': 'Food', 'value': 14400000, 'color': 0xFFFF8042},
+      {'name': 'Transportation', 'value': 9600000, 'color': 0xFF00C49F},
+      {'name': 'Shopping', 'value': 7200000, 'color': 0xFFFFBB28},
+      {'name': 'Entertainment', 'value': 4800000, 'color': 0xFFFF6B9D},
+      {'name': 'Bills', 'value': 10800000, 'color': 0xFF8884D8},
+      {'name': 'Others', 'value': 3600000, 'color': 0xFF82CA9D},
+    ],
+  };
 
-  List<Map<String, dynamic>> get weeklyData => [
-        {'week': 'Week 1', 'income': 800000, 'expense': 650000},
-        {'week': 'Week 2', 'income': 950000, 'expense': 720000},
-        {'week': 'Week 3', 'income': 750000, 'expense': 580000},
-        {'week': 'Week 4', 'income': 1100000, 'expense': 850000},
-      ];
+  final Map<String, List<Map<String, dynamic>>> _accountDataByPeriod = {
+    'thisWeek': [
+      {'name': 'Cash', 'balance': 750000, 'income': 150000, 'expense': 100000},
+      {'name': 'BRI', 'balance': 1500000, 'income': 600000, 'expense': 400000},
+      {'name': 'Gopay', 'balance': 500000, 'income': 200000, 'expense': 180000},
+    ],
+    'thisMonth': [
+      {'name': 'Cash', 'balance': 750000, 'income': 500000, 'expense': 300000},
+      {
+        'name': 'BRI',
+        'balance': 1500000,
+        'income': 2000000,
+        'expense': 1200000
+      },
+      {'name': 'Gopay', 'balance': 500000, 'income': 800000, 'expense': 600000},
+    ],
+    'last3Months': [
+      {'name': 'Cash', 'balance': 850000, 'income': 1500000, 'expense': 900000},
+      {
+        'name': 'BRI',
+        'balance': 1800000,
+        'income': 6000000,
+        'expense': 3600000
+      },
+      {
+        'name': 'Gopay',
+        'balance': 650000,
+        'income': 2400000,
+        'expense': 1800000
+      },
+    ],
+    'thisYear': [
+      {
+        'name': 'Cash',
+        'balance': 1000000,
+        'income': 6000000,
+        'expense': 3600000
+      },
+      {
+        'name': 'BRI',
+        'balance': 2200000,
+        'income': 24000000,
+        'expense': 14400000
+      },
+      {
+        'name': 'Gopay',
+        'balance': 800000,
+        'income': 9600000,
+        'expense': 7200000
+      },
+    ],
+  };
 
-  List<Map<String, dynamic>> get categoryData => [
-        {'name': 'Food', 'value': 1200000, 'color': 0xFFFF8042},
-        {'name': 'Transportation', 'value': 800000, 'color': 0xFF00C49F},
-        {'name': 'Shopping', 'value': 600000, 'color': 0xFFFFBB28},
-        {'name': 'Entertainment', 'value': 400000, 'color': 0xFFFF6B9D},
-        {'name': 'Bills', 'value': 900000, 'color': 0xFF8884D8},
-        {'name': 'Others', 'value': 300000, 'color': 0xFF82CA9D},
-      ];
+  // Dynamic data getters based on selected period
+  List<Map<String, dynamic>> get currentPeriodData {
+    return _periodData[selectedPeriod] ?? _periodData['thisMonth']!;
+  }
 
-  List<Map<String, dynamic>> get accountData => [
-        {
-          'name': 'Cash',
-          'balance': 750000,
-          'income': 500000,
-          'expense': 300000
-        },
-        {
-          'name': 'BRI',
-          'balance': 1500000,
-          'income': 2000000,
-          'expense': 1200000
-        },
-        {
-          'name': 'Gopay',
-          'balance': 500000,
-          'income': 800000,
-          'expense': 600000
-        },
-      ];
+  List<Map<String, dynamic>> get categoryData {
+    return _categoryDataByPeriod[selectedPeriod] ??
+        _categoryDataByPeriod['thisMonth']!;
+  }
+
+  List<Map<String, dynamic>> get accountData {
+    return _accountDataByPeriod[selectedPeriod] ??
+        _accountDataByPeriod['thisMonth']!;
+  }
+
+  // Backward compatibility getters
+  List<Map<String, dynamic>> get monthlyData => currentPeriodData;
+  List<Map<String, dynamic>> get weeklyData => currentPeriodData;
 
   // Calculation methods
   double get totalIncome {
-    return _monthlyData.fold(0.0, (sum, month) => sum + month['income']);
+    return currentPeriodData.fold(0.0, (sum, data) => sum + data['income']);
   }
 
   double get totalExpense {
-    return _monthlyData.fold(0.0, (sum, month) => sum + month['expense']);
+    return currentPeriodData.fold(0.0, (sum, data) => sum + data['expense']);
   }
 
   double get netIncome => totalIncome - totalExpense;
 
   double get expenseGrowth {
-    if (_monthlyData.length < 2) return 0.0;
-    final currentMonth = _monthlyData.last['expense'];
-    final previousMonth = _monthlyData[_monthlyData.length - 2]['expense'];
-    return ((currentMonth - previousMonth) / previousMonth * 100);
+    if (currentPeriodData.length < 2) return 0.0;
+    final currentPeriod = currentPeriodData.last['expense'];
+    final previousPeriod =
+        currentPeriodData[currentPeriodData.length - 2]['expense'];
+    return ((currentPeriod - previousPeriod) / previousPeriod * 100);
   }
 
   // Actions
   void setSelectedPeriod(String period) {
     _selectedPeriod.value = period;
+    // Trigger update for all reactive widgets
+    update();
   }
 
   void setSelectedTab(String tab) {

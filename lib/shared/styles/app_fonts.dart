@@ -349,6 +349,13 @@ class AppFonts {
     color: AppColors.text1_1000,
   );
 
+  static TextStyle primaryRegular11 = TextStyle(
+    fontFamily: AppFontFamily.poppins,
+    fontSize: 11.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.text1_1000,
+  );
+
   static TextStyle primaryRegular12 = TextStyle(
     fontFamily: AppFontFamily.poppins,
     fontSize: 12.sp,

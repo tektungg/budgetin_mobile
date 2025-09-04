@@ -275,11 +275,13 @@ class OverviewTab extends GetView<ReportController> {
                       showTitles: true,
                       getTitlesWidget: (value, meta) {
                         if (value.toInt() >= 0 &&
-                            value.toInt() < controller.monthlyData.length) {
+                            value.toInt() <
+                                controller.currentPeriodData.length) {
                           return Padding(
                             padding: EdgeInsets.only(top: 8.h),
                             child: Text(
-                              controller.monthlyData[value.toInt()]['month'],
+                              controller.currentPeriodData[value.toInt()]
+                                  ['period'],
                               style: AppFonts.primaryRegular10.copyWith(
                                 color: AppColors.text1_600,
                               ),
@@ -348,7 +350,7 @@ class OverviewTab extends GetView<ReportController> {
 
   double _getMaxValue() {
     double maxValue = 0;
-    for (var data in controller.monthlyData) {
+    for (var data in controller.currentPeriodData) {
       if (data['income'] > maxValue) maxValue = data['income'].toDouble();
       if (data['expense'] > maxValue) maxValue = data['expense'].toDouble();
     }
@@ -366,7 +368,7 @@ class OverviewTab extends GetView<ReportController> {
   }
 
   List<BarChartGroupData> _getBarGroups() {
-    return controller.monthlyData.asMap().entries.map((entry) {
+    return controller.currentPeriodData.asMap().entries.map((entry) {
       final index = entry.key;
       final data = entry.value;
       return BarChartGroupData(

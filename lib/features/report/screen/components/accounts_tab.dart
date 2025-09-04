@@ -10,19 +10,19 @@ class AccountsTab extends GetView<ReportController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Account Performance Chart
-        _buildAccountPerformanceChart(),
+    return Obx(() => Column(
+          children: [
+            // Account Performance Chart
+            _buildAccountPerformanceChart(),
 
-        SizedBox(height: 20.h),
+            SizedBox(height: 20.h),
 
-        // Account Details
-        _buildAccountDetails(),
+            // Account Details
+            _buildAccountDetails(),
 
-        SizedBox(height: 20.h),
-      ],
-    );
+            SizedBox(height: 20.h),
+          ],
+        ));
   }
 
   Widget _buildAccountPerformanceChart() {

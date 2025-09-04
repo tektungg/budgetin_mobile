@@ -10,22 +10,22 @@ class TrendsTab extends GetView<ReportController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Weekly Trend Chart
-        _buildWeeklyTrendChart(),
+    return Obx(() => Column(
+          children: [
+            // Period Trend Chart
+            _buildPeriodTrendChart(),
 
-        SizedBox(height: 20.h),
+            SizedBox(height: 20.h),
 
-        // Growth Metrics
-        _buildGrowthMetrics(),
+            // Growth Metrics
+            _buildGrowthMetrics(),
 
-        SizedBox(height: 20.h),
-      ],
-    );
+            SizedBox(height: 20.h),
+          ],
+        ));
   }
 
-  Widget _buildWeeklyTrendChart() {
+  Widget _buildPeriodTrendChart() {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(20.w),
@@ -44,7 +44,7 @@ class TrendsTab extends GetView<ReportController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Weekly Trends',
+            '${_getPeriodLabel()} Trends',
             style: AppFonts.primarySemiBold16.copyWith(
               color: AppColors.text1_1000,
             ),
@@ -89,11 +89,13 @@ class TrendsTab extends GetView<ReportController> {
                       interval: 1,
                       getTitlesWidget: (value, meta) {
                         if (value.toInt() >= 0 &&
-                            value.toInt() < controller.weeklyData.length) {
+                            value.toInt() <
+                                controller.currentPeriodData.length) {
                           return Padding(
                             padding: EdgeInsets.only(top: 8.h),
                             child: Text(
-                              'W${value.toInt() + 1}',
+                              controller.currentPeriodData[value.toInt()]
+                                  ['period'],
                               style: AppFonts.primaryRegular10.copyWith(
                                 color: AppColors.text1_600,
                               ),
@@ -125,7 +127,7 @@ class TrendsTab extends GetView<ReportController> {
                   border: Border.all(color: AppColors.border, width: 1),
                 ),
                 minX: 0,
-                maxX: (controller.weeklyData.length - 1).toDouble(),
+                maxX: (controller.currentPeriodData.length - 1).toDouble(),
                 minY: 0,
                 maxY: _getMaxWeeklyValue(),
                 lineBarsData: [
@@ -198,7 +200,7 @@ class TrendsTab extends GetView<ReportController> {
 
   double _getMaxWeeklyValue() {
     double maxValue = 0;
-    for (var data in controller.weeklyData) {
+    for (var data in controller.currentPeriodData) {
       if (data['income'] > maxValue) maxValue = data['income'].toDouble();
       if (data['expense'] > maxValue) maxValue = data['expense'].toDouble();
     }
@@ -216,13 +218,13 @@ class TrendsTab extends GetView<ReportController> {
   }
 
   List<FlSpot> _getIncomeSpots() {
-    return controller.weeklyData.asMap().entries.map((entry) {
+    return controller.currentPeriodData.asMap().entries.map((entry) {
       return FlSpot(entry.key.toDouble(), entry.value['income'].toDouble());
     }).toList();
   }
 
   List<FlSpot> _getExpenseSpots() {
-    return controller.weeklyData.asMap().entries.map((entry) {
+    return controller.currentPeriodData.asMap().entries.map((entry) {
       return FlSpot(entry.key.toDouble(), entry.value['expense'].toDouble());
     }).toList();
   }
@@ -265,7 +267,7 @@ class TrendsTab extends GetView<ReportController> {
                   children: [
                     Text(
                       'Income Growth',
-                      style: AppFonts.primaryRegular12.copyWith(
+                      style: AppFonts.primaryRegular11.copyWith(
                         color: AppColors.text1_600,
                       ),
                     ),
@@ -317,7 +319,7 @@ class TrendsTab extends GetView<ReportController> {
                     children: [
                       Text(
                         'Expense Growth',
-                        style: AppFonts.primaryRegular12.copyWith(
+                        style: AppFonts.primaryRegular11.copyWith(
                           color: AppColors.text1_600,
                         ),
                       ),
@@ -358,5 +360,20 @@ class TrendsTab extends GetView<ReportController> {
         ),
       ],
     );
+  }
+
+  String _getPeriodLabel() {
+    switch (controller.selectedPeriod) {
+      case 'thisWeek':
+        return 'Daily';
+      case 'thisMonth':
+        return 'Weekly';
+      case 'last3Months':
+        return 'Monthly';
+      case 'thisYear':
+        return 'Quarterly';
+      default:
+        return 'Period';
+    }
   }
 }

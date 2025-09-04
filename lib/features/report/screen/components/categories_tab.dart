@@ -10,19 +10,19 @@ class CategoriesTab extends GetView<ReportController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Category Pie Chart
-        _buildCategoryPieChart(),
+    return Obx(() => Column(
+          children: [
+            // Category Pie Chart
+            _buildCategoryPieChart(),
 
-        SizedBox(height: 20.h),
+            SizedBox(height: 20.h),
 
-        // Category List
-        _buildCategoryList(),
+            // Category List
+            _buildCategoryList(),
 
-        SizedBox(height: 20.h),
-      ],
-    );
+            SizedBox(height: 20.h),
+          ],
+        ));
   }
 
   Widget _buildCategoryPieChart() {
