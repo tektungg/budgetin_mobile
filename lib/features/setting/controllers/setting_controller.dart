@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:budgetin/features/auth/controllers/auth_controller.dart';
 import 'package:budgetin/configs/routes/route.dart';
+import 'package:budgetin/shared/controllers/dialog_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SettingController extends GetxController {
   static SettingController get to => Get.find();
 
   late AuthController _authController;
+  late DialogController _dialogController;
 
   // Getters
   User? get currentUser => _authController.currentUser;
@@ -15,6 +17,7 @@ class SettingController extends GetxController {
   void onInit() {
     super.onInit();
     _authController = Get.find<AuthController>();
+    _dialogController = Get.find<DialogController>();
   }
 
   // Mock user data - in real app this would come from API
@@ -113,6 +116,10 @@ class SettingController extends GetxController {
   }
 
   void logout() {
-    _authController.signOut();
+    _dialogController.showLogoutDialog(
+      onConfirm: () async {
+        await _authController.signOut();
+      },
+    );
   }
 }
