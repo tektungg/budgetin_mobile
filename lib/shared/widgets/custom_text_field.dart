@@ -44,10 +44,8 @@ class CustomTextField extends StatelessWidget {
         if (labelText != null) ...[
           Text(
             labelText!,
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.text1_700,
+            style: AppFonts.brandingBold.copyWith(
+              color: AppColors.text1_800,
             ),
           ),
           SizedBox(height: 8.h),
@@ -70,9 +68,8 @@ class CustomTextField extends StatelessWidget {
           maxLines: maxLines,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: TextStyle(
+            hintStyle: AppFonts.primaryRegular16.copyWith(
               color: AppColors.text1_400,
-              fontSize: 14.sp,
             ),
             prefixIcon: prefixIcon != null
                 ? ExcludeFocus(

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/report/controllers/report_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class AccountsTab extends GetView<ReportController> {
   const AccountsTab({super.key});
@@ -50,19 +51,73 @@ class AccountsTab extends GetView<ReportController> {
           ),
           SizedBox(height: 16.h),
 
-          // Simple bar chart representation
+          // fl_chart BarChart
           SizedBox(
             height: 300.h,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: controller.accountData.map((account) {
-                return _buildAccountBar(
-                  name: account['name'],
-                  income: account['income'].toDouble(),
-                  expense: account['expense'].toDouble(),
-                );
-              }).toList(),
+            child: BarChart(
+              BarChartData(
+                alignment: BarChartAlignment.spaceAround,
+                maxY: _getMaxAccountValue(),
+                barTouchData: BarTouchData(enabled: false),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        if (value.toInt() >= 0 &&
+                            value.toInt() < controller.accountData.length) {
+                          return Padding(
+                            padding: EdgeInsets.only(top: 8.h),
+                            child: Text(
+                              controller.accountData[value.toInt()]['name'],
+                              style: AppFonts.primaryRegular10.copyWith(
+                                color: AppColors.text1_600,
+                              ),
+                            ),
+                          );
+                        }
+                        return const Text('');
+                      },
+                      reservedSize: 32.h,
+                    ),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: _getMaxAccountValue() / 5,
+                      getTitlesWidget: (value, meta) {
+                        return Text(
+                          _formatChartValue(value),
+                          style: AppFonts.primaryRegular10.copyWith(
+                            color: AppColors.text1_600,
+                          ),
+                        );
+                      },
+                      reservedSize: 40.w,
+                    ),
+                  ),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                ),
+                borderData: FlBorderData(show: false),
+                barGroups: _getAccountBarGroups(),
+                gridData: FlGridData(
+                  show: true,
+                  horizontalInterval: _getMaxAccountValue() / 5,
+                  getDrawingHorizontalLine: (value) {
+                    return FlLine(
+                      color: AppColors.border,
+                      strokeWidth: 1,
+                    );
+                  },
+                  drawVerticalLine: false,
+                ),
+              ),
             ),
           ),
 
@@ -82,53 +137,48 @@ class AccountsTab extends GetView<ReportController> {
     );
   }
 
-  Widget _buildAccountBar({
-    required String name,
-    required double income,
-    required double expense,
-  }) {
-    final maxValue = controller.accountData
-        .expand((data) => [data['income'], data['expense']])
-        .reduce((a, b) => a > b ? a : b)
-        .toDouble();
+  double _getMaxAccountValue() {
+    double maxValue = 0;
+    for (var data in controller.accountData) {
+      if (data['income'] > maxValue) maxValue = data['income'].toDouble();
+      if (data['expense'] > maxValue) maxValue = data['expense'].toDouble();
+    }
+    return maxValue * 1.1; // Add 10% padding
+  }
 
-    final incomeHeight = (income / maxValue) * 140.h;
-    final expenseHeight = (expense / maxValue) * 140.h;
+  String _formatChartValue(double value) {
+    if (value >= 1000000) {
+      return '${(value / 1000000).toStringAsFixed(0)}M';
+    } else if (value >= 1000) {
+      return '${(value / 1000).toStringAsFixed(0)}K';
+    } else {
+      return value.toStringAsFixed(0);
+    }
+  }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        // Income bar
-        Container(
-          width: 20.w,
-          height: incomeHeight,
-          margin: EdgeInsets.only(right: 4.w),
-          decoration: BoxDecoration(
+  List<BarChartGroupData> _getAccountBarGroups() {
+    return controller.accountData.asMap().entries.map((entry) {
+      final index = entry.key;
+      final data = entry.value;
+      return BarChartGroupData(
+        x: index,
+        barRods: [
+          BarChartRodData(
+            toY: data['income'].toDouble(),
             color: AppColors.accent,
+            width: 20.w,
             borderRadius: BorderRadius.circular(4.r),
           ),
-        ),
-        SizedBox(height: 4.h),
-        // Expense bar
-        Container(
-          width: 20.w,
-          height: expenseHeight,
-          margin: EdgeInsets.only(right: 4.w),
-          decoration: BoxDecoration(
+          BarChartRodData(
+            toY: data['expense'].toDouble(),
             color: AppColors.error,
+            width: 20.w,
             borderRadius: BorderRadius.circular(4.r),
           ),
-        ),
-        SizedBox(height: 8.h),
-        // Account name
-        Text(
-          name,
-          style: AppFonts.primaryRegular10.copyWith(
-            color: AppColors.text1_600,
-          ),
-        ),
-      ],
-    );
+        ],
+        barsSpace: 4.w,
+      );
+    }).toList();
   }
 
   Widget _buildAccountDetails() {

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/report/controllers/report_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class TrendsTab extends GetView<ReportController> {
   const TrendsTab({super.key});
@@ -50,12 +51,132 @@ class TrendsTab extends GetView<ReportController> {
           ),
           SizedBox(height: 16.h),
 
-          // Simple line chart representation
+          // fl_chart LineChart
           SizedBox(
             height: 200.h,
-            child: CustomPaint(
-              size: Size(double.infinity, 200.h),
-              painter: LineChartPainter(controller.weeklyData),
+            child: LineChart(
+              LineChartData(
+                gridData: FlGridData(
+                  show: true,
+                  drawVerticalLine: true,
+                  horizontalInterval: _getMaxWeeklyValue() / 5,
+                  verticalInterval: 1,
+                  getDrawingHorizontalLine: (value) {
+                    return FlLine(
+                      color: AppColors.border,
+                      strokeWidth: 1,
+                    );
+                  },
+                  getDrawingVerticalLine: (value) {
+                    return FlLine(
+                      color: AppColors.border,
+                      strokeWidth: 1,
+                    );
+                  },
+                ),
+                titlesData: FlTitlesData(
+                  show: true,
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 30.h,
+                      interval: 1,
+                      getTitlesWidget: (value, meta) {
+                        if (value.toInt() >= 0 &&
+                            value.toInt() < controller.weeklyData.length) {
+                          return Padding(
+                            padding: EdgeInsets.only(top: 8.h),
+                            child: Text(
+                              'W${value.toInt() + 1}',
+                              style: AppFonts.primaryRegular10.copyWith(
+                                color: AppColors.text1_600,
+                              ),
+                            ),
+                          );
+                        }
+                        return const Text('');
+                      },
+                    ),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: _getMaxWeeklyValue() / 5,
+                      reservedSize: 40.w,
+                      getTitlesWidget: (value, meta) {
+                        return Text(
+                          _formatChartValue(value),
+                          style: AppFonts.primaryRegular10.copyWith(
+                            color: AppColors.text1_600,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                borderData: FlBorderData(
+                  show: true,
+                  border: Border.all(color: AppColors.border, width: 1),
+                ),
+                minX: 0,
+                maxX: (controller.weeklyData.length - 1).toDouble(),
+                minY: 0,
+                maxY: _getMaxWeeklyValue(),
+                lineBarsData: [
+                  // Income line
+                  LineChartBarData(
+                    spots: _getIncomeSpots(),
+                    isCurved: true,
+                    color: AppColors.accent,
+                    barWidth: 3,
+                    isStrokeCapRound: true,
+                    dotData: FlDotData(
+                      show: true,
+                      getDotPainter: (spot, percent, barData, index) {
+                        return FlDotCirclePainter(
+                          radius: 4,
+                          color: AppColors.accent,
+                          strokeWidth: 2,
+                          strokeColor: AppColors.white,
+                        );
+                      },
+                    ),
+                    belowBarData: BarAreaData(
+                      show: true,
+                      color: AppColors.accent.withOpacity(0.1),
+                    ),
+                  ),
+                  // Expense line
+                  LineChartBarData(
+                    spots: _getExpenseSpots(),
+                    isCurved: true,
+                    color: AppColors.error,
+                    barWidth: 3,
+                    isStrokeCapRound: true,
+                    dotData: FlDotData(
+                      show: true,
+                      getDotPainter: (spot, percent, barData, index) {
+                        return FlDotCirclePainter(
+                          radius: 4,
+                          color: AppColors.error,
+                          strokeWidth: 2,
+                          strokeColor: AppColors.white,
+                        );
+                      },
+                    ),
+                    belowBarData: BarAreaData(
+                      show: true,
+                      color: AppColors.error.withOpacity(0.1),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
 
@@ -73,6 +194,37 @@ class TrendsTab extends GetView<ReportController> {
         ],
       ),
     );
+  }
+
+  double _getMaxWeeklyValue() {
+    double maxValue = 0;
+    for (var data in controller.weeklyData) {
+      if (data['income'] > maxValue) maxValue = data['income'].toDouble();
+      if (data['expense'] > maxValue) maxValue = data['expense'].toDouble();
+    }
+    return maxValue * 1.1; // Add 10% padding
+  }
+
+  String _formatChartValue(double value) {
+    if (value >= 1000000) {
+      return '${(value / 1000000).toStringAsFixed(0)}M';
+    } else if (value >= 1000) {
+      return '${(value / 1000).toStringAsFixed(0)}K';
+    } else {
+      return value.toStringAsFixed(0);
+    }
+  }
+
+  List<FlSpot> _getIncomeSpots() {
+    return controller.weeklyData.asMap().entries.map((entry) {
+      return FlSpot(entry.key.toDouble(), entry.value['income'].toDouble());
+    }).toList();
+  }
+
+  List<FlSpot> _getExpenseSpots() {
+    return controller.weeklyData.asMap().entries.map((entry) {
+      return FlSpot(entry.key.toDouble(), entry.value['expense'].toDouble());
+    }).toList();
   }
 
   Widget _buildGrowthMetrics() {
@@ -207,85 +359,4 @@ class TrendsTab extends GetView<ReportController> {
       ],
     );
   }
-}
-
-class LineChartPainter extends CustomPainter {
-  final List<Map<String, dynamic>> data;
-
-  LineChartPainter(this.data);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final padding = 20.0;
-    final chartWidth = size.width - padding * 2;
-    final chartHeight = size.height - padding * 2;
-
-    // Find max value for scaling
-    final maxValue = data
-        .expand((item) => [item['income'], item['expense']])
-        .reduce((a, b) => a > b ? a : b)
-        .toDouble();
-
-    // Draw income line
-    final incomePaint = Paint()
-      ..color = AppColors.accent
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-
-    final incomePoints = <Offset>[];
-    for (int i = 0; i < data.length; i++) {
-      final x = padding + (i / (data.length - 1)) * chartWidth;
-      final y =
-          padding + chartHeight - (data[i]['income'] / maxValue) * chartHeight;
-      incomePoints.add(Offset(x, y));
-    }
-
-    if (incomePoints.length > 1) {
-      final incomePath = Path();
-      incomePath.moveTo(incomePoints.first.dx, incomePoints.first.dy);
-      for (int i = 1; i < incomePoints.length; i++) {
-        incomePath.lineTo(incomePoints[i].dx, incomePoints[i].dy);
-      }
-      canvas.drawPath(incomePath, incomePaint);
-    }
-
-    // Draw expense line
-    final expensePaint = Paint()
-      ..color = AppColors.error
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-
-    final expensePoints = <Offset>[];
-    for (int i = 0; i < data.length; i++) {
-      final x = padding + (i / (data.length - 1)) * chartWidth;
-      final y =
-          padding + chartHeight - (data[i]['expense'] / maxValue) * chartHeight;
-      expensePoints.add(Offset(x, y));
-    }
-
-    if (expensePoints.length > 1) {
-      final expensePath = Path();
-      expensePath.moveTo(expensePoints.first.dx, expensePoints.first.dy);
-      for (int i = 1; i < expensePoints.length; i++) {
-        expensePath.lineTo(expensePoints[i].dx, expensePoints[i].dy);
-      }
-      canvas.drawPath(expensePath, expensePaint);
-    }
-
-    // Draw dots
-    final dotPaint = Paint()..style = PaintingStyle.fill;
-
-    for (final point in incomePoints) {
-      dotPaint.color = AppColors.accent;
-      canvas.drawCircle(point, 3, dotPaint);
-    }
-
-    for (final point in expensePoints) {
-      dotPaint.color = AppColors.error;
-      canvas.drawCircle(point, 3, dotPaint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

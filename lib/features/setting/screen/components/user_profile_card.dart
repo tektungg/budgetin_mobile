@@ -61,7 +61,9 @@ class UserProfileCard extends GetView<SettingController> {
                 children: [
                   Text(
                     userData['name'],
-                    style: AppFonts.primarySemiBold18.copyWith(
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppFonts.primarySemiBold16.copyWith(
                       color: AppColors.text1_1000,
                     ),
                   ),

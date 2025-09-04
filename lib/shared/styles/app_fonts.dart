@@ -300,218 +300,218 @@ class AppFonts {
     color: AppColors.text2_1000,
   );
 
-  //* Primary Font (Inter) - Light
+  //* poppins Font (Inter) - Light
   static TextStyle primaryLight = const TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontWeight: FontWeight.w300,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryLight10 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 10.sp,
     fontWeight: FontWeight.w300,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryLight12 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 12.sp,
     fontWeight: FontWeight.w300,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryLight14 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 14.sp,
     fontWeight: FontWeight.w300,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryLight16 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 16.sp,
     fontWeight: FontWeight.w300,
     color: AppColors.text1_1000,
   );
 
-  //* Primary Font (Inter) - Regular
+  //* poppins Font (Inter) - Regular
   static TextStyle primaryRegular = const TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontWeight: FontWeight.w400,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryRegular10 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 10.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryRegular12 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryRegular14 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 14.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryRegular16 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryRegular18 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 18.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.text1_1000,
   );
 
-  //* Primary Font (Inter) - Medium
+  //* poppins Font (Inter) - Medium
   static TextStyle primaryMedium = const TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontWeight: FontWeight.w500,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryMedium10 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 10.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryMedium12 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryMedium14 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryMedium16 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryMedium18 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.text1_1000,
   );
 
-  //* Primary Font (Inter) - SemiBold
+  //* poppins Font (Inter) - SemiBold
   static TextStyle primarySemiBold = const TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontWeight: FontWeight.w600,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primarySemiBold12 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 12.sp,
     fontWeight: FontWeight.w600,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primarySemiBold14 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primarySemiBold16 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 16.sp,
     fontWeight: FontWeight.w600,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primarySemiBold18 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 18.sp,
     fontWeight: FontWeight.w600,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primarySemiBold20 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 20.sp,
     fontWeight: FontWeight.w600,
     color: AppColors.text1_1000,
   );
 
-  //* Primary Font (Inter) - Bold
+  //* poppins Font (Inter) - Bold
   static TextStyle primaryBold = const TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontWeight: FontWeight.w700,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryBold14 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 14.sp,
     fontWeight: FontWeight.w700,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryBold16 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 16.sp,
     fontWeight: FontWeight.w700,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryBold18 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 18.sp,
     fontWeight: FontWeight.w700,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryBold20 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 20.sp,
     fontWeight: FontWeight.w700,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryBold24 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 24.sp,
     fontWeight: FontWeight.w700,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryBold28 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 28.sp,
     fontWeight: FontWeight.w700,
     color: AppColors.text1_1000,
   );
 
   static TextStyle primaryBold32 = TextStyle(
-    fontFamily: AppFontFamily.primary,
+    fontFamily: AppFontFamily.poppins,
     fontSize: 32.sp,
     fontWeight: FontWeight.w700,
     color: AppColors.text1_1000,

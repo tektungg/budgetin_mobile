@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/report/controllers/report_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
-import 'dart:math' as math;
+import 'package:fl_chart/fl_chart.dart';
 
 class CategoriesTab extends GetView<ReportController> {
   const CategoriesTab({super.key});
@@ -51,15 +51,19 @@ class CategoriesTab extends GetView<ReportController> {
           ),
           SizedBox(height: 16.h),
 
-          // Simple pie chart representation
+          // fl_chart PieChart
           SizedBox(
             height: 200.h,
-            child: Center(
-              child: SizedBox(
-                width: 150.w,
-                height: 150.h,
-                child: CustomPaint(
-                  painter: PieChartPainter(controller.categoryData),
+            child: PieChart(
+              PieChartData(
+                sectionsSpace: 2,
+                centerSpaceRadius: 40.w,
+                sections: _getPieSections(),
+                borderData: FlBorderData(show: false),
+                pieTouchData: PieTouchData(
+                  touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                    // Handle touch events if needed
+                  },
                 ),
               ),
             ),
@@ -67,6 +71,25 @@ class CategoriesTab extends GetView<ReportController> {
         ],
       ),
     );
+  }
+
+  List<PieChartSectionData> _getPieSections() {
+    final total =
+        controller.categoryData.fold(0.0, (sum, cat) => sum + cat['value']);
+
+    return controller.categoryData.map((category) {
+      final percentage = (category['value'] / total) * 100;
+      return PieChartSectionData(
+        color: Color(category['color']),
+        value: category['value'].toDouble(),
+        title: '${percentage.toStringAsFixed(1)}%',
+        radius: 60.w,
+        titleStyle: AppFonts.primarySemiBold12.copyWith(
+          color: AppColors.white,
+        ),
+        titlePositionPercentageOffset: 0.6,
+      );
+    }).toList();
   }
 
   Widget _buildCategoryList() {
@@ -169,48 +192,4 @@ class CategoriesTab extends GetView<ReportController> {
       ),
     );
   }
-}
-
-class PieChartPainter extends CustomPainter {
-  final List<Map<String, dynamic>> data;
-
-  PieChartPainter(this.data);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = math.min(size.width, size.height) / 2 * 0.8;
-
-    final total = data.fold(0.0, (sum, item) => sum + item['value']);
-
-    double startAngle = -math.pi / 2; // Start from top
-
-    for (final item in data) {
-      final sweepAngle = (item['value'] / total) * 2 * math.pi;
-
-      final paint = Paint()
-        ..color = Color(item['color'])
-        ..style = PaintingStyle.fill;
-
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        startAngle,
-        sweepAngle,
-        true,
-        paint,
-      );
-
-      startAngle += sweepAngle;
-    }
-
-    // Draw inner circle for donut effect
-    final innerPaint = Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.fill;
-
-    canvas.drawCircle(center, radius * 0.4, innerPaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

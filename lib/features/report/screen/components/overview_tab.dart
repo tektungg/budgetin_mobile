@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:budgetin/features/report/controllers/report_controller.dart';
 import 'package:budgetin/shared/styles/styles.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class OverviewTab extends GetView<ReportController> {
   const OverviewTab({super.key});
@@ -259,19 +260,73 @@ class OverviewTab extends GetView<ReportController> {
           ),
           SizedBox(height: 16.h),
 
-          // Simple bar chart representation
+          // fl_chart BarChart
           SizedBox(
             height: 300.h,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: controller.monthlyData.map((data) {
-                return _buildChartBar(
-                  month: data['month'],
-                  income: data['income'].toDouble(),
-                  expense: data['expense'].toDouble(),
-                );
-              }).toList(),
+            child: BarChart(
+              BarChartData(
+                alignment: BarChartAlignment.spaceAround,
+                maxY: _getMaxValue(),
+                barTouchData: BarTouchData(enabled: false),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        if (value.toInt() >= 0 &&
+                            value.toInt() < controller.monthlyData.length) {
+                          return Padding(
+                            padding: EdgeInsets.only(top: 8.h),
+                            child: Text(
+                              controller.monthlyData[value.toInt()]['month'],
+                              style: AppFonts.primaryRegular10.copyWith(
+                                color: AppColors.text1_600,
+                              ),
+                            ),
+                          );
+                        }
+                        return const Text('');
+                      },
+                      reservedSize: 32.h,
+                    ),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: _getMaxValue() / 5,
+                      getTitlesWidget: (value, meta) {
+                        return Text(
+                          _formatChartValue(value),
+                          style: AppFonts.primaryRegular10.copyWith(
+                            color: AppColors.text1_600,
+                          ),
+                        );
+                      },
+                      reservedSize: 40.w,
+                    ),
+                  ),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                ),
+                borderData: FlBorderData(show: false),
+                barGroups: _getBarGroups(),
+                gridData: FlGridData(
+                  show: true,
+                  horizontalInterval: _getMaxValue() / 5,
+                  getDrawingHorizontalLine: (value) {
+                    return FlLine(
+                      color: AppColors.border,
+                      strokeWidth: 1,
+                    );
+                  },
+                  drawVerticalLine: false,
+                ),
+              ),
             ),
           ),
 
@@ -291,51 +346,48 @@ class OverviewTab extends GetView<ReportController> {
     );
   }
 
-  Widget _buildChartBar({
-    required String month,
-    required double income,
-    required double expense,
-  }) {
-    final maxValue = controller.monthlyData
-        .expand((data) => [data['income'], data['expense']])
-        .reduce((a, b) => a > b ? a : b)
-        .toDouble();
+  double _getMaxValue() {
+    double maxValue = 0;
+    for (var data in controller.monthlyData) {
+      if (data['income'] > maxValue) maxValue = data['income'].toDouble();
+      if (data['expense'] > maxValue) maxValue = data['expense'].toDouble();
+    }
+    return maxValue * 1.1; // Add 10% padding
+  }
 
-    final incomeHeight = (income / maxValue) * 140.h;
-    final expenseHeight = (expense / maxValue) * 140.h;
+  String _formatChartValue(double value) {
+    if (value >= 1000000) {
+      return '${(value / 1000000).toStringAsFixed(0)}M';
+    } else if (value >= 1000) {
+      return '${(value / 1000).toStringAsFixed(0)}K';
+    } else {
+      return value.toStringAsFixed(0);
+    }
+  }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        // Income bar
-        Container(
-          width: 12.w,
-          height: incomeHeight,
-          decoration: BoxDecoration(
+  List<BarChartGroupData> _getBarGroups() {
+    return controller.monthlyData.asMap().entries.map((entry) {
+      final index = entry.key;
+      final data = entry.value;
+      return BarChartGroupData(
+        x: index,
+        barRods: [
+          BarChartRodData(
+            toY: data['income'].toDouble(),
             color: AppColors.accent,
+            width: 12.w,
             borderRadius: BorderRadius.circular(2.r),
           ),
-        ),
-        SizedBox(height: 2.h),
-        // Expense bar
-        Container(
-          width: 12.w,
-          height: expenseHeight,
-          decoration: BoxDecoration(
+          BarChartRodData(
+            toY: data['expense'].toDouble(),
             color: AppColors.error,
+            width: 12.w,
             borderRadius: BorderRadius.circular(2.r),
           ),
-        ),
-        SizedBox(height: 8.h),
-        // Month label
-        Text(
-          month,
-          style: AppFonts.primaryRegular10.copyWith(
-            color: AppColors.text1_600,
-          ),
-        ),
-      ],
-    );
+        ],
+        barsSpace: 4.w,
+      );
+    }).toList();
   }
 
   Widget _buildLegendItem(String label, Color color) {
