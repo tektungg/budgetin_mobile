@@ -9,31 +9,20 @@ class SignUpController extends GetxController {
   late AuthController _authController;
 
   // Form controllers
-  TextEditingController? _fullNameController;
-  TextEditingController? _emailController;
-  TextEditingController? _passwordController;
-  TextEditingController? _confirmPasswordController;
+  late final TextEditingController _fullNameController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
+  late final TextEditingController _confirmPasswordController;
 
-  // Getters with null safety
-  TextEditingController get fullNameController {
-    _fullNameController ??= TextEditingController();
-    return _fullNameController!;
-  }
+  // Getters
+  TextEditingController get fullNameController => _fullNameController;
 
-  TextEditingController get emailController {
-    _emailController ??= TextEditingController();
-    return _emailController!;
-  }
+  TextEditingController get emailController => _emailController;
 
-  TextEditingController get passwordController {
-    _passwordController ??= TextEditingController();
-    return _passwordController!;
-  }
+  TextEditingController get passwordController => _passwordController;
 
-  TextEditingController get confirmPasswordController {
-    _confirmPasswordController ??= TextEditingController();
-    return _confirmPasswordController!;
-  }
+  TextEditingController get confirmPasswordController =>
+      _confirmPasswordController;
 
   // Form key
   late GlobalKey<FormState> formKey;
@@ -67,10 +56,10 @@ class SignUpController extends GetxController {
 
   @override
   void onClose() {
-    _fullNameController?.dispose();
-    _emailController?.dispose();
-    _passwordController?.dispose();
-    _confirmPasswordController?.dispose();
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.onClose();
   }
 
