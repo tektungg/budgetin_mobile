@@ -36,6 +36,11 @@ class SignUpScreen extends GetView<SignUpController> {
 
               SizedBox(height: 30.h),
 
+              // Terms & Conditions
+              const SignUpTermsConditions(),
+
+              SizedBox(height: 24.h),
+
               // Sign Up Button
               const SignUpActionButton(),
 

@@ -5,4 +5,6 @@ class HiveConstant {
   static const String authBox = "auth-box";
   static const String listCrudDataModel = "list-crud-model";
   static const String bearerToken = "bearer-token";
+  static const String rememberMe = "remember-me";
+  static const String rememberedEmail = "remembered-email";
 }
