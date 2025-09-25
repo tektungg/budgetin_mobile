@@ -1,13 +1,15 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:budgetin/utils/services/supabase_service.dart';
 import 'package:budgetin/utils/functions/error_parser.dart';
-import 'package:budgetin/shared/styles/styles.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthController extends GetxController {
   static AuthController get to => Get.find();
 
   final SupabaseService _supabaseService = Get.find<SupabaseService>();
+  StreamSubscription<AuthState>? _authStateSubscription;
 
   // Observable variables
   final Rx<User?> _currentUser = Rx<User?>(null);
@@ -28,9 +30,16 @@ class AuthController extends GetxController {
   }
 
   void _initAuthListener() {
-    _supabaseService.authStateChanges.listen((AuthState state) {
+    _authStateSubscription =
+        _supabaseService.authStateChanges.listen((AuthState state) {
       _currentUser.value = state.session?.user;
     });
+  }
+
+  @override
+  void onClose() {
+    _authStateSubscription?.cancel();
+    super.onClose();
   }
 
   void _getCurrentUser() {
@@ -52,18 +61,7 @@ class AuthController extends GetxController {
         data: fullName != null ? {'full_name': fullName} : null,
       );
 
-      if (response.user != null) {
-        // Show success message for sign up to inform user to check email
-        Get.snackbar(
-          'Berhasil',
-          'Akun berhasil dibuat! Silakan cek email Anda untuk verifikasi.',
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: AppColors.success,
-          colorText: AppColors.white,
-        );
-        return true;
-      }
-      return false;
+      return response.user != null;
     } catch (e) {
       final userFriendlyMessage = ErrorParser.parseAuthError(e);
       _errorMessage.value = userFriendlyMessage;
@@ -109,11 +107,12 @@ class AuthController extends GetxController {
 
       final success = await _supabaseService.signInWithGoogle();
 
-      if (success) {
-        // Success message will be handled by UI if needed
-        return true;
+      if (!success) {
+        _errorMessage.value =
+            'Unable to sign in with Google. Please try again.';
       }
-      return false;
+
+      return success;
     } catch (e) {
       final userFriendlyMessage = ErrorParser.parseAuthError(e);
       _errorMessage.value = userFriendlyMessage;

@@ -11,7 +11,8 @@ class SignUpActionButton extends GetView<SignUpController> {
   Widget build(BuildContext context) {
     return Obx(() => CustomButton(
           text: 'Create Account',
-          onPressed: controller.isLoading ? null : controller.signUp,
+          onPressed:
+              controller.isLoading || !controller.acceptTerms ? null : controller.signUp,
           isLoading: controller.isLoading,
           backgroundColor: AppColors.primary,
         ));

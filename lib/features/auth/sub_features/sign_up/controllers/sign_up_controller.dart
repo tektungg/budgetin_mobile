@@ -65,6 +65,15 @@ class SignUpController extends GetxController {
     formKey = GlobalKey<FormState>();
   }
 
+  @override
+  void onClose() {
+    _fullNameController?.dispose();
+    _emailController?.dispose();
+    _passwordController?.dispose();
+    _confirmPasswordController?.dispose();
+    super.onClose();
+  }
+
   void clearError() {
     _authController.clearError();
   }
@@ -75,6 +84,13 @@ class SignUpController extends GetxController {
 
   void toggleConfirmPasswordVisibility() {
     _isConfirmPasswordVisible.value = !_isConfirmPasswordVisible.value;
+  }
+
+  void toggleAcceptTerms(bool? value) {
+    _acceptTerms.value = value ?? false;
+    if (_acceptTerms.value) {
+      _authController.clearError();
+    }
   }
 
   String? validateFullName(String? value) {
@@ -119,6 +135,13 @@ class SignUpController extends GetxController {
 
   Future<void> signUp() async {
     if (!formKey.currentState!.validate()) return;
+
+    if (!acceptTerms) {
+      _authController.setErrorMessage(
+        'Please accept the terms & conditions to continue.',
+      );
+      return;
+    }
 
     final success = await _authController.signUp(
       email: emailController.text.trim(),

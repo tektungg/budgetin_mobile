@@ -48,6 +48,9 @@ class HiveService extends GetxService {
   /// Function for get data from the general box.
   T? get<T>({required String key}) => generalBox.get(key) as T?;
 
+  /// Remove data from the general box.
+  void remove({required String key}) => generalBox.delete(key);
+
   /* Function save bearer token to local */
   static String? getBearer() => authBox.get(HiveConstant.bearerToken);
   static Future<void> setBearer(String token) async => await authBox.put(
