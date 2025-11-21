@@ -125,22 +125,21 @@ class SupabaseService extends GetxService {
       // Method 1: Coba OAuth flow dulu (lebih reliable untuk mobile)
       log('📤 Supabase signInWithGoogle - Attempting OAuth flow',
           name: 'SupabaseService');
-      final response = await _client.auth.signInWithOAuth(
+      final success = await _client.auth.signInWithOAuth(
         OAuthProvider.google,
         redirectTo: null, // Biarkan Supabase handle redirect
       );
 
       AppLogger.logSupabaseResponse(
         operation: 'signInWithGoogle',
-        success: true,
+        success: success,
         data: {
           'method': 'OAuth',
-          'userId': response.user?.id,
-          'hasSession': response.session != null,
+          'launched': success,
         },
       );
 
-      return true;
+      return success;
     } catch (e) {
       log('OAuth Sign In Error: $e', name: 'SupabaseService');
       AppLogger.logError('OAuth Sign In failed, trying fallback', error: e);
