@@ -130,13 +130,17 @@ class SupabaseService extends GetxService {
         redirectTo: null, // Biarkan Supabase handle redirect
       );
 
-      log('OAuth response: $response', name: 'SupabaseService');
       AppLogger.logSupabaseResponse(
         operation: 'signInWithGoogle',
         success: true,
-        data: {'method': 'OAuth', 'response': response},
+        data: {
+          'method': 'OAuth',
+          'userId': response.user?.id,
+          'hasSession': response.session != null,
+        },
       );
-      return response;
+
+      return true;
     } catch (e) {
       log('OAuth Sign In Error: $e', name: 'SupabaseService');
       AppLogger.logError('OAuth Sign In failed, trying fallback', error: e);
@@ -191,16 +195,19 @@ class SupabaseService extends GetxService {
 
         log('Native Google Sign In success: ${response.user?.email}',
             name: 'SupabaseService');
+        final hasUser = response.user != null;
+        final hasSession = response.session != null;
         AppLogger.logSupabaseResponse(
           operation: 'signInWithGoogle',
-          success: true,
+          success: hasUser || hasSession,
           data: {
             'method': 'native',
             'userId': response.user?.id,
             'email': response.user?.email,
+            'hasSession': hasSession,
           },
         );
-        return response.user != null;
+        return hasUser || hasSession;
       } catch (e2) {
         log('Native Google Sign In fallback error: $e2',
             name: 'SupabaseService');
